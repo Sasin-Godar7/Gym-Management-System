@@ -4,14 +4,17 @@
       padding: 0;
 
   }
-  body {
-    opacity: 0;
-    animation: fadeIn 0.5s ease-in forwards;
-}
 
-@keyframes fadeIn {
-    to { opacity: 1; }
-}
+  body {
+      opacity: 0;
+      animation: fadeIn 0.5s ease-in forwards;
+  }
+
+  @keyframes fadeIn {
+      to {
+          opacity: 1;
+      }
+  }
 
 
   .navbar {
@@ -24,11 +27,9 @@
       top: 0;
       left: 0;
       z-index: 1000;
-
-
   }
 
-  .logo {
+  /* .logo {
       height: 100%;
       width: 15%;
       display: flex;
@@ -38,6 +39,28 @@
       font-size: large;
       font-weight: 700;
 
+  } */
+
+  .logo img {
+      height: 55px;
+      /* Logo ko height control */
+      width: 100%;
+      /* Aspect ratio maintain */
+      object-fit: cover;
+      /* Quality loss nabos */
+      display: block;
+      border-radius: 5px;
+      background: transparent;
+      
+      
+  }
+
+  .logo {
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+      padding-top: 5px;
+      width: 15%;
   }
 
   .menu {
@@ -270,7 +293,7 @@
   /* classes section css */
 
   .classes-section {
-      background-color: #1e1e1e;
+      background-color: #0f0f0f;
       color: #fff;
       padding: 80px 10%;
       text-align: center;
@@ -305,7 +328,8 @@
 
   .class-card img {
       width: 100%;
-      height: 160px;
+      height: 250px;
+      ;
       object-fit: cover;
   }
 
@@ -324,7 +348,7 @@
 
   .class-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 10px 20px rgba(130, 232, 99, 0.2);
       cursor: pointer;
   }
 
@@ -334,84 +358,77 @@
   /* ===============================
    TRAINERS SECTION
    =============================== */
-.trainers-section {
-    text-align: center;
-    padding: 60px 20px;
-    background-color: #0f0f0f;
-    color: #fff;
-}
+  .trainers-section {
+      text-align: center;
+      padding: 60px 20px;
+      background-color: #1e1e1e;
+      color: #fff;
+  }
 
-.trainers-section .section-title {
-    font-size: 2em;
-    color: #ff4757;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-}
+  .trainers-section .section-title {
+      font-size: 2em;
+      color: #32cc11;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+  }
 
-.trainers-section .section-subtitle {
-    color: #aaa;
-    margin-bottom: 40px;
-    font-size: 1rem;
-}
+  .trainers-section .section-subtitle {
+      color: #aaa;
+      margin-bottom: 40px;
+      font-size: 1rem;
+  }
 
-.trainers-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-    max-width: 1200px;
-    margin: auto;
-}
+  .trainers-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: auto;
+  }
 
-.trainer-card {
-    background-color: #1a1a1a;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    transition: 0.3s;
-}
+  .trainer-card {
+      background-color: #1a1a1a;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: 0.3s;
+  }
 
-.trainer-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 6px 15px rgba(255,71,87,0.3);
-}
+  .trainer-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(130, 232, 99, 0.2);
+  }
 
-.trainer-card img {
-    width: 100%;
-    height: 250px;
-    border-radius: 10px;
-    object-fit: cover;
-}
+  .trainer-card img {
+      width: 100%;
+      height: 250px;
+      border-radius: 10px;
+      object-fit: cover;
+  }
 
-.trainer-card h3 {
-    margin-top: 15px;
-    color: #fff;
-    font-size: 1.3rem;
-}
+  .trainer-card h3 {
+      margin-top: 15px;
+      color: #fff;
+      font-size: 1.3rem;
+  }
 
-.trainer-card .trainer-role {
-    color: #ff4757;
-    font-weight: bold;
-    font-size: 0.95rem;
-    margin: 8px 0;
-}
+  .trainer-card .trainer-role {
+      color: #32cc11;
+      font-weight: bold;
+      font-size: 0.95rem;
+      margin: 8px 0;
+  }
 
-.trainer-card p {
-    color: #ccc;
-    font-size: 0.9rem;
-    line-height: 1.4;
-}
+  .trainer-card p {
+      color: #ccc;
+      font-size: 0.9rem;
+      line-height: 1.4;
+  }
 
-/* Responsive */
-@media (max-width: 600px) {
-    .trainers-container {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-}
-
-
-
-
-
-
-  
+  /* Responsive */
+  @media (max-width: 600px) {
+      .trainers-container {
+          grid-template-columns: 1fr;
+          gap: 20px;
+      }
+  }
