@@ -358,21 +358,19 @@
   /* ===============================
    TRAINERS SECTION
    =============================== */
-<<<<<<< HEAD
   .trainers-section {
       text-align: center;
       padding: 60px 20px;
       background-color: #1e1e1e;
       color: #fff;
   }
-=======
+
 .trainers-section {
     text-align: center;
     padding: 60px 20px;
     background-color:  #1e1e1e;
     color: #fff;
 }
->>>>>>> 2d4da5b2a7361c01c7a85df4b09c27ec644b39b3
 
   .trainers-section .section-title {
       font-size: 2em;
@@ -403,17 +401,16 @@
       transition: 0.3s;
   }
 
-<<<<<<< HEAD
   .trainer-card:hover {
       transform: translateY(-10px);
       box-shadow: 0 10px 20px rgba(130, 232, 99, 0.2);
   }
-=======
+
 .trainer-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 6px 15px rgba(101, 239, 99, 0.3);
 }
->>>>>>> 2d4da5b2a7361c01c7a85df4b09c27ec644b39b3
+
 
   .trainer-card img {
       width: 100%;
