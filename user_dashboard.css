@@ -1,0 +1,40 @@
+/* General */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+body { background-color: #0f0f0f; color: #fff; }
+
+/* Navbar */
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: #111; }
+.navbar .logo img { width: 180px; }
+.navbar .menu a { margin-left: 20px; color: #fff; text-decoration: none; transition: 0.3s; }
+.navbar .menu a:hover { color: #32cc11; }
+.logout-btn { background: red; padding: 5px 12px; border-radius: 5px; color: #fff; }
+
+/* Hero */
+.hero { height: 80vh; background: url('Images/gym profile.avif') no-repeat center center/cover; display: flex; justify-content: center; align-items: center; text-align: center; }
+.hero-text h1 { font-size: 48px; margin-bottom: 15px; color: #32cc11; }
+.hero-text p { font-size: 20px; margin-bottom: 20px; }
+.hero-text button { background: #32cc11; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; color: #000; font-weight: bold; }
+
+/* Classes */
+.classes-section { padding: 60px 50px; text-align: center; }
+.classes-section h2 { color: #32cc11; margin-bottom: 30px; }
+.classes-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
+.class-card { background: #1a1a1a; padding: 20px; border-radius: 10px; width: 220px; transition: 0.3s; }
+.class-card img { width: 100%; border-radius: 10px; }
+.class-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(50, 204, 17, 0.3); }
+
+/* Trainers */
+.trainers-section { padding: 60px 50px; text-align: center; }
+.trainers-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
+.trainer-card { background: #1a1a1a; padding: 15px; border-radius: 10px; width: 200px; }
+.trainer-card img { width: 100%; border-radius: 10px; }
+
+/* Subscription */
+.subscription-section { padding: 60px 50px; text-align: center; }
+.pricing-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
+.pricing-card { background: #111726; padding: 25px; border-radius: 10px; width: 200px; }
+
+/* Gallery */
+.gallery { padding: 50px; text-align: center; }
+.gallery-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.gallery-container .item img { width: 100%; border-radius: 10px; }

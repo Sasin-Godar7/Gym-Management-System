@@ -1,28 +1,34 @@
 <?php
 session_start();
-require_once "config.php"; // database connection file
+require "config.php";
 
 $message = "";
 
-// Check if form submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = trim($_POST['name']);
-    $password = trim($_POST['password']);
+if(isset($_POST['name']) && isset($_POST['password'])){
+    $username = $_POST['name'];
+    $password = $_POST['password'];
 
-    // Query to find user
-    $sql = "SELECT * FROM users WHERE username = ?";
+    // DB bata user fetch
+    $sql = "SELECT * FROM users WHERE username=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if ($result->num_rows == 1) {
+    if($result->num_rows == 1){
         $user = $result->fetch_assoc();
-        // Verify hashed password
-        if (password_verify($password, $user['password'])) {
+
+        // Simple password check (if not hashed)
+        if($password == $user['password']){ 
             $_SESSION['username'] = $user['username'];
-            $_SESSION['user_id'] = $user['id'];
-            header("Location: home.php"); // redirect to home/dashboard
+            $_SESSION['role'] = $user['role'];
+
+            // Role check
+            if($user['role'] == 'admin'){
+                header("Location: admin_dashboard.php");
+            } else {
+                header("Location: user_dashboard.php");
+            }
             exit();
         } else {
             $message = "Incorrect password!";
@@ -36,37 +42,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="Login.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<link rel="stylesheet" href="login.css">
 </head>
 <body>
 
 <div class="container">
-    <form action="" method="post">
+    <form method="post">
         <h2>Login</h2>
 
-        <?php if ($message != "") { echo '<p style="color:red;">'.$message.'</p>'; } ?>
+        <?php if($message != "") { echo '<p style="color:red;">'.$message.'</p>'; } ?>
 
         <div class="input-box">
-            <input type="text" name="name" id="uname" placeholder="Username" required />
+            <input type="text" name="name" placeholder="Username" required>
         </div>
 
         <div class="input-box">
-            <input type="password" name="password" id="upassword" placeholder="Password" required />
-        </div>
-
-        <div class="remember-forget">
-            <label> <input type="checkbox"> Remember Me </label>
-            <a href="#">Forget password?</a>
+            <input type="password" name="password" placeholder="Password" required>
         </div>
 
         <button type="submit" class="btn">Login</button>
 
-        <div class="register-link">
-            <p>Don't have an account? <a href="register.php">Register</a></p>
-        </div>
+        <p>Don't have an account? <a href="register.php">Register</a></p>
     </form>
 </div>
 
