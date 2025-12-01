@@ -1,54 +1,73 @@
+
+<?php
+#just to make a php file
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sasin Elite Gym</title>
-    <link rel="stylesheet" href="Main.css">
-    <!--favicon-->
-    <link rel="icon" type="image/png" href="/Images/favicon.png">
-    <!--for cdn-->
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="index.css">
+    
 </head>
 
 <body>
 
-    <div class="hero" id="home">
-        <nav class="navbar">
+
+    <div class="hero">
+        <nav class="navbar" id="navbar">
 
             <div class="logo">
-                <img src="/Images/fulllogo.png" alt="logo">
+                <img src="Images/fulllogo.png" alt="logo">
             </div>
 
+            <!-- Desktop Menu -->
             <div class="menu">
-                <a href="#home">Home</a>
-                <a href="about">About Us</a>
+                <a href="#">Home</a>
+                <a href="#about">About Us</a>
                 <a href="#services">Services</a>
-                <a href="#trainer">Trainer</a>
-                <a href="#">Contact Us</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact">Contact Us</a>
             </div>
 
-            <div class="join" onclick="window.location.href='login.html'" style="cursor: pointer;">
+            <!-- Join Button -->
+            <div class="join" onclick="window.location.href='login.html'">
                 Join Us
+            </div>
+
+            <!-- Hamburger -->
+            <div class="hamburger" onclick="toggleMenu()">
+                ☰
             </div>
 
         </nav>
 
-        <!--hero section -->
-        <div class="hero-text">
-            <h1 class="gym-name">SASIN ELITE GYM</h1>
-            <p>
-                Transform your body and mind at <b>SASIN ELITE GYM</b>.<br>
-                Modern equipment, expert trainers, and a motivating fitness environment.
-            </p>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#">Home</a>
+            <a href="#">About Us</a>
+            <a href="#">Services</a>
+            <a href="#">Gallery</a>
+            <a href="#">Contact Us</a>
+            <button class="mobile-join" onclick="window.location.href='login.html'">Join Us</button>
         </div>
 
-        <button class="joininfo" onclick="window.location.href='login.html'">
-            Join Us
-        </button>
+        <!-- Hero Text -->
+        <div class="hero-text">
+            <h1 class="gym-name">SASIN ELITE GYM</h1>
+            <p>Transform your body and mind at <b class="hero-name">SASIN ELITE GYM</b>.<br>
+                Modern equipment, expert trainers, and a motivating fitness environment.
+            </p>
+
+            <button class="joininfo" onclick="window.location.href='login.html'">
+                Join Us
+            </button>
+        </div>
     </div>
 
     <!-- About Us Section -->
@@ -56,9 +75,9 @@
         <div class="about-container">
 
             <div class="about-images">
-                <img src="/Images/gymhall1.jpg" alt="Gym Image 1" class="middle-img">
-                <img src="/Images/gymhall2.jpg" alt="Gym Image 2">
-                <img src="/Images/gymhall3.jpg" alt="Gym Image 3">
+                <img src="Images/gymhall1.jpg" alt="Gym Image 1" class="middle-img">
+                <img src="Images/gymhall2.jpg" alt="Gym Image 2">
+                <img src="Images/gymhall3.jpg" alt="Gym Image 3">
             </div>
 
             <div class="about-content">
@@ -103,25 +122,25 @@
         <div class="classes-container">
 
             <div class="class-card">
-                <img src="/Images/cardio.jpg" alt="Cardio Class">
+                <img src="Images/cardio.jpg" alt="Cardio Class">
                 <h3>Cardio Training</h3>
                 <p>Boost your stamina and burn calories with high-energy cardio sessions.</p>
             </div>
 
             <div class="class-card">
-                <img src="/Images/strength training.jpg" alt="Strength Class">
+                <img src="Images/strength training.jpg" alt="Strength Class">
                 <h3>Strength Training</h3>
                 <p>Build muscle and improve endurance with weight and resistance exercises.</p>
             </div>
 
             <div class="class-card">
-                <img src="/Images/yoga.jpg" alt="Yoga Class">
+                <img src="Images/yoga.jpg" alt="Yoga Class">
                 <h3>Yoga</h3>
                 <p>Enhance flexibility, balance, and mental focus with guided yoga sessions.</p>
             </div>
 
             <div class="class-card">
-                <img src="/Images/zumba.jpg" alt="Zumba Class">
+                <img src="Images/zumba.jpg" alt="Zumba Class">
                 <h3>Zumba</h3>
                 <p>Dance your way to fitness with fun, high-energy Zumba classes.</p>
             </div>
@@ -137,28 +156,28 @@
         <div class="trainers-container">
 
             <div class="trainer-card">
-                <img src="/Images/strength trainer.jpg" alt="Trainer 1">
+                <img src="Images/strength trainer.jpg" alt="Trainer 1">
                 <h3>Satish Ghimire</h3>
                 <p class="trainer-role">Strength & Conditioning Coach</p>
                 <p>5+ years of experience helping clients build muscle and endurance.</p>
             </div>
 
             <div class="trainer-card">
-                <img src="/Images/yoga.jpg" alt="Trainer 2">
+                <img src="Images/yoga.jpg" alt="Trainer 2">
                 <h3>Maya Devi</h3>
                 <p class="trainer-role">Yoga & Flexibility Expert</p>
                 <p>Certified instructor focusing on balance, posture & mindfulness.</p>
             </div>
 
             <div class="trainer-card">
-                <img src="/Images/gym profile 2.avif" alt="Trainer 3">
+                <img src="Images/gym profile 2.avif" alt="Trainer 3">
                 <h3>Rooney Carlsen</h3>
                 <p class="trainer-role">Personal Trainer</p>
                 <p>Designs customized workout and diet plans for all fitness levels.</p>
             </div>
 
             <div class="trainer-card">
-                <img src="/Images/cardio-trainer.jpg" alt="Trainer 4">
+                <img src="Images/cardio-trainer.jpg" alt="Trainer 4">
                 <h3>Bikram Parajuli</h3>
                 <p class="trainer-role">Cardio Coach</p>
                 <p>Expert in fat-burning workouts and high-intensity interval training.</p>
@@ -224,7 +243,7 @@
         <div class="testimonial-wrapper" id="testimonialWrapper">
 
             <div class="testimonial-card">
-                <img src="/Images/reviewer1.jpg" class="t-img">
+                <img src="Images/reviewer1.jpg" class="t-img">
                 <h3>Ramesh Dahal</h3>
                 <div class="stars">★★★★★</div>
                 <p>
@@ -234,7 +253,7 @@
             </div>
 
             <div class="testimonial-card">
-                <img src="/Images/reviewer2.jpg" class="t-img">
+                <img src="Images/reviewer2.jpg" class="t-img">
                 <h3>Jenny watson</h3>
                 <div class="stars">★★★★☆</div>
                 <p>
@@ -243,7 +262,7 @@
             </div>
 
             <div class="testimonial-card">
-                <img src="/Images/reviewer3.jpg" class="t-img">
+                <img src="Images/reviewer3.jpg" class="t-img">
                 <h3>Robin Shrestha</h3>
                 <div class="stars">★★★★★</div>
                 <p>
@@ -252,7 +271,7 @@
             </div>
 
             <div class="testimonial-card">
-                <img src="/Images/reviewer4.jpg" class="t-img">
+                <img src="Images/reviewer4.jpg" class="t-img">
                 <h3>CBum</h3>
                 <div class="stars">★★★★★</div>
                 <p>
@@ -266,7 +285,7 @@
 
     <!-- Gallery Section -->
 
-    <section class="gallery">
+    <section class="gallery" id="gallery">
         <h2>Our Gallery</h2>
         <p style="text-align: center;
   margin: 30px auto 60px;
@@ -316,7 +335,7 @@
             </div>
 
             <!-- Contact -->
-            <div class="footer-section">
+            <div class="footer-section" id="contact">
                 <h4>Contact</h4>
                 <ul class="contact-info">
                     <li>📍 Chitwan, Nepal</li>
@@ -344,9 +363,11 @@
         </div>
     </footer>
 
-
-
-
+    <script>
+        function toggleMenu() {
+            document.getElementById("mobileMenu").classList.toggle("show");
+        }
+    </script>
 
 </body>
 
