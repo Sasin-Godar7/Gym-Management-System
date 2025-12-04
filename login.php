@@ -2,10 +2,11 @@
 session_start();
 require "config.php";
 
-$message = "";
+$message = ""; // Error message
 
-if(isset($_POST['name']) && isset($_POST['password'])){
-    $username = $_POST['name'];
+if(isset($_POST['username']) && isset($_POST['password'])) {
+
+    $username = $_POST['username'];
     $password = $_POST['password'];
 
     // DB bata user fetch
@@ -15,26 +16,28 @@ if(isset($_POST['name']) && isset($_POST['password'])){
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if($result->num_rows == 1){
-        $user = $result->fetch_assoc();
+    if($result->num_rows === 1){
+        $row = $result->fetch_assoc();
 
-        // Simple password check (if not hashed)
-        if($password == $user['password']){ 
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['role'] = $user['role'];
+        if(password_verify($password, $row['password'])){
+            
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['role'] = $row['role'];
 
-            // Role check
-            if($user['role'] == 'admin'){
+            if($row['role'] === "admin"){
                 header("Location: admin_dashboard.php");
+                exit();
             } else {
                 header("Location: user_dashboard.php");
+                exit();
             }
-            exit();
+
         } else {
             $message = "Incorrect password!";
         }
+
     } else {
-        $message = "Username not found!";
+        $message = "User not found!";
     }
 }
 ?>
@@ -42,31 +45,34 @@ if(isset($_POST['name']) && isset($_POST['password'])){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login</title>
-<link rel="stylesheet" href="login.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="login.css">
+   <link rel="icon" type="image/png" href="images/fav.png">
 </head>
 <body>
 
 <div class="container">
-    <form method="post">
-        <h2>Login</h2>
+  <form method="post">
+    <h2>Login</h2>
 
-        <?php if($message != "") { echo '<p style="color:red;">'.$message.'</p>'; } ?>
+    <?php if($message != ''): ?>
+      <p style="color:red; text-align:center;"><?= $message ?></p>
+    <?php endif; ?>
 
-        <div class="input-box">
-            <input type="text" name="name" placeholder="Username" required>
-        </div>
+    <div class="input-box">
+      <input type="text" name="username" placeholder="Username" required>
+    </div>
 
-        <div class="input-box">
-            <input type="password" name="password" placeholder="Password" required>
-        </div>
+    <div class="input-box">
+      <input type="password" name="password" placeholder="Password" required>
+    </div>
 
-        <button type="submit" class="btn">Login</button>
+    <button type="submit" class="btn">Login</button>
 
-        <p>Don't have an account? <a href="register.php">Register</a></p>
-    </form>
+    <p class="register-link">Don't have an account? <a href="register.php">Register</a></p>
+  </form>
 </div>
 
 </body>

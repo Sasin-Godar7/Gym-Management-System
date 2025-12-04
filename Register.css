@@ -66,6 +66,7 @@
      color: #333;
  }
 
+
  .container .login-link {
      font-size: 15px;
      text-align: center;
@@ -79,4 +80,5 @@
 
  .container .login-link a:hover {
      text-decoration: underline;
+     
  }

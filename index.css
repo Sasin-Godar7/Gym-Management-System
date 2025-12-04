@@ -35,10 +35,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
+            /* position: sticky;
             top: 0;
             z-index: 999;
-            transition: 0.3s;
+            transition: 0.3s; */
         }
 
         /* LOGO */
@@ -73,13 +73,13 @@
             padding: 10px 25px;
             border-radius: 25px;
             font-weight: 600;
-            color: #000;
+            color: #ffffff;
             cursor: pointer;
             transition: 0.3s;
         }
 
         .join:hover {
-            background: #ffffff;
+            background: #33ed40;
         }
 
         /* ==================== HAMBURGER ==================== */
@@ -120,7 +120,7 @@
             margin-top: 10px;
             padding: 10px 25px;
             background: #32cc11;
-            color: black;
+            color: rgb(255, 248, 248);
             border-radius: 20px;
             border: none;
             font-size: 17px;
@@ -165,10 +165,11 @@
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
+            color: white;
         }
 
         .joininfo:hover {
-            background: #fff;
+            background: #33ed40;
         }
 
         /* ==================== RESPONSIVE ==================== */

@@ -10,9 +10,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sasin Elite Gym</title>
+    <link rel="icon" type="image/png" href="images/fav.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
      <link rel="stylesheet" href="index.css">
+     
     
 </head>
 
@@ -28,7 +31,7 @@
 
             <!-- Desktop Menu -->
             <div class="menu">
-                <a href="#">Home</a>
+                <a href="#home">Home</a>
                 <a href="#about">About Us</a>
                 <a href="#services">Services</a>
                 <a href="#gallery">Gallery</a>
@@ -36,7 +39,8 @@
             </div>
 
             <!-- Join Button -->
-            <div class="join" onclick="window.location.href='login.html'">
+            <div  
+            class="join" onclick="window.location.href='login.php'" >
                 Join Us
             </div>
 
@@ -58,13 +62,13 @@
         </div>
 
         <!-- Hero Text -->
-        <div class="hero-text">
+        <div class="hero-text" id="home">
             <h1 class="gym-name">SASIN ELITE GYM</h1>
             <p>Transform your body and mind at <b class="hero-name">SASIN ELITE GYM</b>.<br>
                 Modern equipment, expert trainers, and a motivating fitness environment.
             </p>
 
-            <button class="joininfo" onclick="window.location.href='login.html'">
+            <button class="joininfo" onclick="window.location.href='login.php'">
                 Join Us
             </button>
         </div>
@@ -157,14 +161,14 @@
 
             <div class="trainer-card">
                 <img src="Images/strength trainer.jpg" alt="Trainer 1">
-                <h3>Satish Ghimire</h3>
+                <h3>Ashok Poudel</h3>
                 <p class="trainer-role">Strength & Conditioning Coach</p>
                 <p>5+ years of experience helping clients build muscle and endurance.</p>
             </div>
 
             <div class="trainer-card">
                 <img src="Images/yoga.jpg" alt="Trainer 2">
-                <h3>Maya Devi</h3>
+                <h3>Smriti Lama</h3>
                 <p class="trainer-role">Yoga & Flexibility Expert</p>
                 <p>Certified instructor focusing on balance, posture & mindfulness.</p>
             </div>
@@ -263,7 +267,7 @@
 
             <div class="testimonial-card">
                 <img src="Images/reviewer3.jpg" class="t-img">
-                <h3>Robin Shrestha</h3>
+                <h3>Anuz Shrestha</h3>
                 <div class="stars">★★★★★</div>
                 <p>
                     “Perfect for muscle building and fat loss. Personal trainers give the best guidance.”
@@ -271,6 +275,24 @@
             </div>
 
             <div class="testimonial-card">
+                <img src="Images/reviewer4.jpg" class="t-img">
+                <h3>CBum</h3>
+                <div class="stars">★★★★★</div>
+                <p>
+                    “Perfect for muscle building and fat loss. Personal trainers give the best guidance.”
+                </p>
+            </div>
+
+              <div class="testimonial-card">
+                <img src="Images/reviewer4.jpg" class="t-img">
+                <h3>CBum</h3>
+                <div class="stars">★★★★★</div>
+                <p>
+                    “Perfect for muscle building and fat loss. Personal trainers give the best guidance.”
+                </p>
+            </div>
+
+              <div class="testimonial-card">
                 <img src="Images/reviewer4.jpg" class="t-img">
                 <h3>CBum</h3>
                 <div class="stars">★★★★★</div>
@@ -303,11 +325,11 @@
             <div class="item"><img src="Images/gymhall1.jpg"></div>
             <div class="item"><img src="Images/gymhall2.jpg" alt=""></div>
             <div class="item"><img src="Images/gymhall3.jpg" alt=""></div>
-            <div class="item"><img src="Images/gymhall1.jpg" alt=""></div>
+            <div class="item"><img src="Images/gymhall4.jpg" alt=""></div>
+            <div class="item"><img src="Images/gymhall4.jpg" alt=""></div>
+            <div class="item"><img src="Images/gymhall5.jpg" alt=""></div>
             <div class="item"><img src="Images/gymhall2.jpg" alt=""></div>
             <div class="item"><img src="Images/gymhall1.jpg" alt=""></div>
-            <div class="item"><img src="Images/gymhall2.jpg" alt=""></div>
-            <div class="item"><img src="Images/gymhall3.jpg" alt=""></div>
 
         </div>
     </section>

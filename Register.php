@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "config.php";
+
 $message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -9,9 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email    = trim($_POST['email']);
     $contact  = trim($_POST['contact']);
 
-    // Check duplicate username/email
-    $check = $conn->prepare("SELECT * FROM users WHERE email=? OR username=?");
-    $check->bind_param("ss", $email, $username);
+    // Check if username or email already exists
+    $check = $conn->prepare("SELECT * FROM users WHERE username=? OR email=?");
+    $check->bind_param("ss", $username, $email);
     $check->execute();
     $result = $check->get_result();
 
@@ -19,7 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "Username or Email already exists!";
     } else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $conn->prepare("INSERT INTO users (username, password, email, contact) VALUES (?, ?, ?, ?)");
+
+        // Default role 'user'
+        $stmt = $conn->prepare("INSERT INTO users (username, password, email, contact, role) VALUES (?, ?, ?, ?, 'user')");
         $stmt->bind_param("ssss", $username, $hashed_password, $email, $contact);
 
         if ($stmt->execute()) {
@@ -31,18 +34,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register</title>
-  <link rel="stylesheet" href="register.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register</title>
+<link rel="stylesheet" href="register.css">
+ <link rel="icon" type="image/png" href="images/fav.png">
 </head>
 <body>
 
 <div class="container">
-  <form action="register.php" method="post">
+  <form method="post">
     <h2>Register</h2>
 
     <?php if($message != ''): ?>
@@ -50,26 +55,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php endif; ?>
 
     <div class="input-box">
-      <input type="text" name="username" id="username" placeholder="Username" required>
+      <input type="text" name="username" placeholder="Username" required>
     </div>
 
     <div class="input-box">
-      <input type="password" name="password" id="password" placeholder="Password" required>
+      <input type="password" name="password" placeholder="Password" required>
     </div>
 
     <div class="input-box">
-      <input type="email" name="email" id="email" placeholder="Email" required>
+      <input type="email" name="email" placeholder="Email" required>
     </div>
 
     <div class="input-box">
-      <input type="tel" name="contact" id="contact" placeholder="Contact" required>
+      <input type="tel" name="contact" placeholder="Contact" required>
     </div>
 
     <button type="submit" class="btn">Register</button>
 
-    <div class="login-link">
-      <p>Already have an account? <a href="login.php">Login</a></p>
-    </div>
+    <p class="login-link">Already have an account? <a href="login.php">Login</a></p>
   </form>
 </div>
 

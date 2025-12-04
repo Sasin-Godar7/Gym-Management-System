@@ -8,116 +8,92 @@ if(!isset($_SESSION['username'])){
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Sasin Elite Gym</title>
-    <link rel="stylesheet" href="dashboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Dashboard | Sasin Elite Gym</title>
+<link rel="stylesheet" href="user_dashboard.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">
-            <img src="Images/fulllogo.png" alt="logo">
-        </div>
-        <div class="menu">
-            <a href="#welcome">Home</a>
-            <a href="#classes">Classes</a>
-            <a href="#trainers">Trainers</a>
-            <a href="#subscription">Subscription</a>
-            <a href="#gallery">Gallery</a>
-            <a href="logout.php" class="logout-btn">Logout</a>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="welcome">
-        <div class="hero-text">
+<!-- NAVBAR -->
+<header class="top-navbar">
+    <div class="logo">
+        <img src="Images/fulllogo.png" alt="logo">
+    </div>
+    <div class="nav-right">
+        <span class="welcome-text">Hi, <?php echo $_SESSION['username']; ?>!</span>
+        <a href="my_account.php"><i class="fas fa-user-circle fa-2x"></i></a>
+        <a href="logout.php" class="logout-btn">Logout</a>
+    </div>
+</header>
+
+<div class="dashboard-wrapper">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <ul>
+            <li><a href="attendance.php"><i class="fas fa-calendar-check"></i> Attendance</a></li>
+            <li><a href="diet.php"><i class="fas fa-apple-alt"></i> Diet Plan</a></li>
+            <li><a href="book_trainer.php"><i class="fas fa-user-friends"></i> Book Trainer</a></li>
+            <li><a href="#classes"><i class="fas fa-dumbbell"></i> Classes</a></li>
+            <li><a href="#subscription"><i class="fas fa-credit-card"></i> Subscription</a></li>
+        </ul>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="dashboard-main">
+
+        <!-- Welcome Section -->
+        <section class="welcome-section">
             <h1>Welcome, <?php echo $_SESSION['username']; ?>!</h1>
-            <p>Transform your body and mind at <b>SASIN ELITE GYM</b></p>
-            <button onclick="window.location.href='#subscription'">Join a Plan</button>
-        </div>
-    </section>
+            <p>Keep track of your fitness journey and stay motivated.</p>
+        </section>
 
-    <!-- Classes Section -->
-    <section class="classes-section" id="classes">
-        <h2 class="section-title">Our Classes</h2>
-        <div class="classes-container">
-            <div class="class-card">
-                <img src="Images/cardio.jpg" alt="Cardio Class">
-                <h3>Cardio Training</h3>
+        <!-- Quick Action Cards -->
+        <section class="quick-actions">
+            <div class="action-card" onclick="window.location.href='attendance.php'">
+                <i class="fas fa-calendar-check"></i>
+                <h3>Attendance</h3>
             </div>
-            <div class="class-card">
-                <img src="Images/strength training.jpg" alt="Strength Class">
-                <h3>Strength Training</h3>
+            <div class="action-card" onclick="window.location.href='diet.php'">
+                <i class="fas fa-apple-alt"></i>
+                <h3>Diet Plan</h3>
             </div>
-            <div class="class-card">
-                <img src="Images/yoga.jpg" alt="Yoga Class">
-                <h3>Yoga</h3>
+            <div class="action-card" onclick="window.location.href='book_trainer.php'">
+                <i class="fas fa-user-friends"></i>
+                <h3>Book Trainer</h3>
             </div>
-            <div class="class-card">
-                <img src="Images/zumba.jpg" alt="Zumba Class">
-                <h3>Zumba</h3>
+            <div class="action-card" onclick="window.location.href='#classes'">
+                <i class="fas fa-dumbbell"></i>
+                <h3>Classes</h3>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Trainers Section -->
-    <section class="trainers-section" id="trainers">
-        <h2 class="section-title">Our Trainers</h2>
-        <div class="trainers-container">
-            <div class="trainer-card">
-                <img src="Images/strength trainer.jpg" alt="Trainer 1">
-                <h3>Satish Ghimire</h3>
+        <!-- Classes -->
+        <section class="classes-section" id="classes">
+            <h2>Our Classes</h2>
+            <div class="class-grid">
+                <div class="class-card"><img src="Images/cardio.jpg"><h4>Cardio</h4></div>
+                <div class="class-card"><img src="Images/strength training.jpg"><h4>Strength</h4></div>
+                <div class="class-card"><img src="Images/yoga.jpg"><h4>Yoga</h4></div>
+                <div class="class-card"><img src="Images/zumba.jpg"><h4>Zumba</h4></div>
             </div>
-            <div class="trainer-card">
-                <img src="Images/yoga.jpg" alt="Trainer 2">
-                <h3>Maya Devi</h3>
-            </div>
-            <div class="trainer-card">
-                <img src="Images/gym profile 2.avif" alt="Trainer 3">
-                <h3>Rooney Carlsen</h3>
-            </div>
-            <div class="trainer-card">
-                <img src="Images/cardio-trainer.jpg" alt="Trainer 4">
-                <h3>Bikram Parajuli</h3>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Subscription Section -->
-    <section class="subscription-section" id="subscription">
-        <h2 class="section-title">Subscription Packages</h2>
-        <div class="pricing-container">
-            <div class="pricing-card">
-                <h3>Basic</h3>
-                <p>Rs 1,200 / month</p>
+        <!-- Subscription -->
+        <section class="subscription-section" id="subscription">
+            <h2>Subscription Plans</h2>
+            <div class="sub-grid">
+                <div class="sub-card">Basic <span>Rs 1,200 / month</span></div>
+                <div class="sub-card popular">Standard <span>Rs 2,500 / month</span></div>
+                <div class="sub-card">Premium <span>Rs 4,000 / month</span></div>
             </div>
-            <div class="pricing-card popular">
-                <h3>Standard</h3>
-                <p>Rs 2,500 / month</p>
-            </div>
-            <div class="pricing-card">
-                <h3>Premium</h3>
-                <p>Rs 4,000 / month</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Gallery Section -->
-    <section class="gallery" id="gallery">
-        <h2>Our Gallery</h2>
-        <div class="gallery-container">
-            <div class="item"><img src="Images/gymhall1.jpg"></div>
-            <div class="item"><img src="Images/gymhall2.jpg"></div>
-            <div class="item"><img src="Images/gymhall3.jpg"></div>
-            <div class="item"><img src="Images/gymhall1.jpg"></div>
-        </div>
-    </section>
+    </main>
+</div>
 
 </body>
-
 </html>
