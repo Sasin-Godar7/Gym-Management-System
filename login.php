@@ -27,7 +27,13 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
             if($row['role'] === "admin"){
                 header("Location: admin_dashboard.php");
                 exit();
-            } else {
+            }
+             elseif($row['role'] === "trainer"){
+                header("Location: trainer_dashboard.php");
+                exit();
+            }
+            
+            else {
                 header("Location: user_dashboard.php");
                 exit();
             }

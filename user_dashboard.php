@@ -12,16 +12,18 @@ if(!isset($_SESSION['username'])){
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>User Dashboard | Sasin Elite Gym</title>
-<link rel="stylesheet" href="user_dashboard.css">
+<link rel="icon" type="image/png" href="images/fav.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<link rel="stylesheet" href="user_dashboard.css">
+ 
+
 </head>
 <body>
 
 <!-- NAVBAR -->
 <header class="top-navbar">
-    <div class="logo">
-        <img src="Images/fulllogo.png" alt="logo">
-    </div>
+    <div class="logo"><img src="Images/fulllogo.png" alt="logo"></div>
     <div class="nav-right">
         <span class="welcome-text">Hi, <?php echo $_SESSION['username']; ?>!</span>
         <a href="my_account.php"><i class="fas fa-user-circle fa-2x"></i></a>
@@ -46,9 +48,9 @@ if(!isset($_SESSION['username'])){
     <main class="dashboard-main">
 
         <!-- Welcome Section -->
-        <section class="welcome-section">
+        <section style="linear-gradient(33deg, #070906e6, #154314)" class="welcome-section" >
             <h1>Welcome, <?php echo $_SESSION['username']; ?>!</h1>
-            <p>Keep track of your fitness journey and stay motivated.</p>
+            <p>Track your fitness journey and stay motivated every day.</p>
         </section>
 
         <!-- Quick Action Cards -->

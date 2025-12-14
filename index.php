@@ -14,6 +14,9 @@
     <link rel="icon" type="image/png" href="images/fav.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!--connect with css-->
      <link rel="stylesheet" href="index.css">
      
     
@@ -22,7 +25,7 @@
 <body>
 
 
-    <div class="hero">
+    <div class="hero" id="home">
         <nav class="navbar" id="navbar">
 
             <div class="logo">
@@ -39,8 +42,8 @@
             </div>
 
             <!-- Join Button -->
-            <div  
-            class="join" onclick="window.location.href='login.php'" >
+            <div  target="_blank"
+            class="join"  onclick="window.location.href='login.php'">
                 Join Us
             </div>
 
@@ -53,16 +56,16 @@
 
         <!-- Mobile Menu -->
         <div class="mobile-menu" id="mobileMenu">
-            <a href="#">Home</a>
-            <a href="#">About Us</a>
-            <a href="#">Services</a>
-            <a href="#">Gallery</a>
-            <a href="#">Contact Us</a>
-            <button class="mobile-join" onclick="window.location.href='login.html'">Join Us</button>
+            <a href="#home">Home</a>
+            <a href="#about-us">About Us</a>
+            <a href="#classes">Services</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact Us</a>
+            <button class="mobile-join" onclick="window.location.href='login.html'" >Join Us</button>
         </div>
 
         <!-- Hero Text -->
-        <div class="hero-text" id="home">
+        <div class="hero-text" >
             <h1 class="gym-name">SASIN ELITE GYM</h1>
             <p>Transform your body and mind at <b class="hero-name">SASIN ELITE GYM</b>.<br>
                 Modern equipment, expert trainers, and a motivating fitness environment.
@@ -182,7 +185,7 @@
 
             <div class="trainer-card">
                 <img src="Images/cardio-trainer.jpg" alt="Trainer 4">
-                <h3>Bikram Parajuli</h3>
+                <h3>Prabin Thapa</h3>
                 <p class="trainer-role">Cardio Coach</p>
                 <p>Expert in fat-burning workouts and high-intensity interval training.</p>
             </div>
@@ -239,71 +242,107 @@
     </section>
 
     <!-- testomonial  / Review Section -->
+      
+<!-- testomonial  / Review Section -->
+<section class="testimonials">
+    <h2 class="section-title">What Our Members Say</h2>
+    <p class="section-subtitle">Real reviews from our fitness family</p>
 
-    <section class="testimonials">
-        <h2 class="section-title">What Our Members Say</h2>
-        <p class="section-subtitle">Real reviews from our fitness family</p>
+    <div class="slider">
+        <div class="slide-track">
 
-        <div class="testimonial-wrapper" id="testimonialWrapper">
-
+            <!-- ORIGINAL CARDS -->
             <div class="testimonial-card">
-                <img src="Images/reviewer1.jpg" class="t-img">
+                <img src="Images/reviewer1.jpg" class="t-img" alt="Ramesh Dahal">
                 <h3>Ramesh Dahal</h3>
                 <div class="stars">★★★★★</div>
-                <p>
-                    “The trainers here are super helpful and the gym environment is motivating.
-                    Best place to start your fitness journey.”
-                </p>
+                <p>The trainers here are super helpful and motivating.</p>
             </div>
 
             <div class="testimonial-card">
-                <img src="Images/reviewer2.jpg" class="t-img">
-                <h3>Jenny watson</h3>
+                <img src="Images/reviewer2.jpg" class="t-img" alt="Jenny Watson">
+                <h3>Jenny Watson</h3>
                 <div class="stars">★★★★☆</div>
-                <p>
-                    “Modern equipment, friendly trainers, and amazing classes. I love the yoga sessions!”
-                </p>
+                <p>Modern equipment and friendly trainers.</p>
             </div>
 
             <div class="testimonial-card">
-                <img src="Images/reviewer3.jpg" class="t-img">
-                <h3>Anuz Shrestha</h3>
+                <img src="Images/reviewer3.jpg" class="t-img" alt="Anuz Shrestha">
+                <h3>Anuz Dhakal</h3>
                 <div class="stars">★★★★★</div>
-                <p>
-                    “Perfect for muscle building and fat loss. Personal trainers give the best guidance.”
-                </p>
+                <p>Fat loss and muscle gain ko best gym.</p>
             </div>
 
             <div class="testimonial-card">
-                <img src="Images/reviewer4.jpg" class="t-img">
+                <img src="Images/reviewer4.jpg" class="t-img" alt="CBum">
                 <h3>CBum</h3>
                 <div class="stars">★★★★★</div>
-                <p>
-                    “Perfect for muscle building and fat loss. Personal trainers give the best guidance.”
-                </p>
+                <p>Perfect bodybuilding environment.</p>
             </div>
 
-              <div class="testimonial-card">
-                <img src="Images/reviewer4.jpg" class="t-img">
+             <div class="testimonial-card">
+                <img src="Images/reviewer5.jpg" class="t-img" alt="CBum">
+                <h3>Rajan Poudel</h3>
+                <div class="stars">★★★★★</div>
+                <p>Perfect bodybuilding environment.</p>
+            </div>
+
+             <div class="testimonial-card">
+                <img src="Images/reviewer6.jpg" class="t-img" alt="CBum">
+                <h3>Aiden Cross</h3>
+                <div class="stars">★★★★★</div>
+                <p>Perfect bodybuilding environment.</p>
+            </div>
+
+
+
+            <!-- DUPLICATE CARDS FOR INFINITE SLIDE -->
+            <div class="testimonial-card">
+                <img src="Images/reviewer1.jpg" class="t-img" alt="Ramesh Dahal">
+                <h3>Ramesh Dahal</h3>
+                <div class="stars">★★★★★</div>
+                <p>The trainers here are super helpful and motivating.</p>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="Images/reviewer2.jpg" class="t-img" alt="Jenny Watson">
+                <h3>Jenny Watson</h3>
+                <div class="stars">★★★★☆</div>
+                <p>Modern equipment and friendly trainers.</p>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="Images/reviewer3.jpg" class="t-img" alt="Anuz Shrestha">
+                <h3>Anuz Dhakal</h3>
+                <div class="stars">★★★★★</div>
+                <p>Fat loss and muscle gain ko best gym.</p>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="Images/reviewer4.jpg" class="t-img" alt="CBum">
                 <h3>CBum</h3>
                 <div class="stars">★★★★★</div>
-                <p>
-                    “Perfect for muscle building and fat loss. Personal trainers give the best guidance.”
-                </p>
+                <p>Perfect bodybuilding environment.</p>
             </div>
 
-              <div class="testimonial-card">
-                <img src="Images/reviewer4.jpg" class="t-img">
-                <h3>CBum</h3>
+             <div class="testimonial-card">
+                <img src="Images/reviewer5.jpg" class="t-img" alt="CBum">
+                <h3>John Moxley</h3>
                 <div class="stars">★★★★★</div>
-                <p>
-                    “Perfect for muscle building and fat loss. Personal trainers give the best guidance.”
-                </p>
+                <p>Perfect bodybuilding environment.</p>
             </div>
 
+             <div class="testimonial-card">
+                <img src="Images/reviewer6.jpg" class="t-img" alt="CBum">
+                <h3>Rajan Poudel</h3>
+                <div class="stars">★★★★★</div>
+                <p>Perfect bodybuilding environment.</p>
+            </div>
 
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- Gallery Section -->
 
@@ -348,7 +387,7 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul>
-                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#home">Home</a></li>
                     <li><a href="#about">About Us</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#gallery">Gallery</a></li>
@@ -371,9 +410,10 @@
             <div class="social-icons">
                 <a href="#"><i class="fab fa-facebook-f"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-tiktok"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-snapchat"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                
             </div>
 
 
