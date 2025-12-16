@@ -13,7 +13,7 @@ if(!isset($_SESSION['username'])){
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Diet Plan | Sasin Elite Gym</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link rel="icon" type="image/png" href="images/fav.png">
+<link rel="icon" type="image/png" href="images/fav.png">
 <style>
 /* --- Global Styles --- */
 * {
@@ -40,6 +40,7 @@ body {
     top: 0;
     z-index: 100;
     box-shadow: 0 2px 15px rgba(0,0,0,0.7);
+    height: 80px;
 }
 
 .top-navbar .logo img {
@@ -49,7 +50,7 @@ body {
 .nav-right {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 40px;
 }
 
 .nav-right .welcome-text {
@@ -79,15 +80,15 @@ body {
 .hero {
     background: linear-gradient(135deg, rgb(26 57 19 / 30%), rgb(12 76 10 / 70%)), url(Images/fitness-bg.jpg) no-repeat center center / cover;
     text-align: center;
-    padding: 80px 20px;
-    border-radius: 15px;
+    padding: 60px 20px;
     margin: 30px auto;
     max-width: 1200px;
+    border-radius : 50px;
 }
 
 .hero h1 {
     font-size: 42px;
-    color: #ffffffff;
+    color: #fff;
     margin-bottom: 15px;
 }
 
@@ -99,13 +100,13 @@ body {
 /* --- Weekly Plan Cards --- */
 .weekly-plan {
     max-width: 1200px;
-    margin: 50px auto;
+    margin: 5px auto;
     padding: 0 20px;
 }
 
 .weekly-plan h2 {
     text-align: center;
-    color: #32cc11;
+    color: #fdfffdff;
     font-size: 32px;
     margin-bottom: 30px;
 }
@@ -154,7 +155,7 @@ body {
 
 .supplements h2 {
     text-align: center;
-    color: #32cc11;
+    color: #ffffffff;
     font-size: 32px;
     margin-bottom: 30px;
 }
@@ -168,21 +169,24 @@ body {
 .supplement-card {
     background: #1e1e1e;
     border-radius: 15px;
-    padding: 25px;
+    padding: 15px;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
     box-shadow: 0 4px 15px rgba(50,204,17,0.1);
 }
 
-.supplement-card i {
-    font-size: 40px;
+.supplement-card img {
+    width: 100%;
+    height: 140px;
+    border-radius: 12px;
+    object-fit: cover;
     margin-bottom: 15px;
-    color: #32cc11;
 }
 
 .supplement-card h3 {
     font-size: 22px;
     margin-bottom: 10px;
+    color:#32cc11;
 }
 
 .supplement-card p {
@@ -232,7 +236,7 @@ body {
 <!-- Hero Section -->
 <section class="hero">
     <h1>Your Personalized Diet Plan</h1>
-    <p>Stay strong, stay fit! Follow this plan to reach your fitness goals efficiently.</p>
+    <p>Follow this plan to stay fit and healthy!</p>
 </section>
 
 <!-- Weekly Plan -->
@@ -242,57 +246,57 @@ body {
         <div class="day-card">
             <h3>Sunday</h3>
             <ul>
-                <li>🥤 Breakfast: Fruit Smoothie</li>
-                <li>🍽 Lunch: Grilled Veggie + Quinoa</li>
-                <li>🥗 Dinner: Light Soup + Salad</li>
+                <li>Breakfast: Fruit Smoothie</li>
+                <li>Lunch: Grilled Veggie + Quinoa</li>
+                <li>Dinner: Light Soup + Salad</li>
             </ul>
         </div>
         <div class="day-card">
             <h3>Monday</h3>
             <ul>
-                <li>🍳 Breakfast: Eggs + Whole Wheat Toast</li>
-                <li>🐟 Lunch: Fish + Brown Rice + Veggies</li>
-                <li>🥤 Dinner: Protein Shake + Salad</li>
+                <li>Breakfast: Eggs + Whole Wheat Toast</li>
+                <li>Lunch: Fish + Brown Rice + Veggies</li>
+                <li>Dinner: Protein Shake + Salad</li>
             </ul>
         </div>
         <div class="day-card">
             <h3>Tuesday</h3>
             <ul>
-                <li>🥛 Breakfast: Greek Yogurt + Berries</li>
-                <li>🌯 Lunch: Chicken Wrap + Veggies</li>
-                <li>🐟 Dinner: Grilled Fish + Salad</li>
+                <li>Breakfast: Greek Yogurt + Berries</li>
+                <li>Lunch: Chicken Wrap + Veggies</li>
+                <li>Dinner: Grilled Fish + Salad</li>
             </ul>
         </div>
         <div class="day-card">
             <h3>Wednesday</h3>
             <ul>
-                <li>🥤 Breakfast: Smoothie Bowl</li>
-                <li>🥦 Lunch: Veggie Stir-fry + Tofu</li>
-                <li>🍗 Dinner: Chicken + Quinoa</li>
+                <li>Breakfast: Smoothie Bowl</li>
+                <li>Lunch: Veggie Stir-fry + Tofu</li>
+                <li>Dinner: Chicken + Quinoa</li>
             </ul>
         </div>
         <div class="day-card">
             <h3>Thursday</h3>
             <ul>
-                <li>🍳 Breakfast: Omelette + Veggies</li>
-                <li>🍗 Lunch: Grilled Chicken + Brown Rice</li>
-                <li>🥗 Dinner: Soup + Salad</li>
+                <li>Breakfast: Omelette + Veggies</li>
+                <li>Lunch: Grilled Chicken + Brown Rice</li>
+                <li>Dinner: Soup + Salad</li>
             </ul>
         </div>
         <div class="day-card">
             <h3>Friday</h3>
             <ul>
-                <li>🥞 Breakfast: Protein Pancakes + Fruits</li>
-                <li>🐟 Lunch: Fish + Veggies</li>
-                <li>🥗 Dinner: Chicken Salad</li>
+                <li>Breakfast: Protein Pancakes + Fruits</li>
+                <li>Lunch: Fish + Veggies</li>
+                <li>Dinner: Chicken Salad</li>
             </ul>
         </div>
         <div class="day-card">
             <h3>Saturday</h3>
             <ul>
-                <li>🥣 Breakfast: Oatmeal + Fruits</li>
-                <li>🍗 Lunch: Grilled Chicken + Quinoa</li>
-                <li>🥗 Dinner: Salad + Soup</li>
+                <li>Breakfast: Oatmeal + Fruits</li>
+                <li>Lunch: Grilled Chicken + Quinoa</li>
+                <li>Dinner: Salad + Soup</li>
             </ul>
         </div>
     </div>
@@ -303,22 +307,22 @@ body {
     <h2>Snacks & Supplements</h2>
     <div class="supplement-cards">
         <div class="supplement-card">
-            <i class="fas fa-apple-alt"></i>
+            <img src="Images/diet1.jpg" alt="Healthy Snacks">
             <h3>Healthy Snacks</h3>
-            <p>Nuts, Fruits, Yogurt for energy boost.</p>
+            <p>Nuts, fruits, yogurt for energy boost.</p>
         </div>
         <div class="supplement-card">
-            <i class="fas fa-dumbbell"></i>
+            <img src="Images/diet2.jpg" alt="Protein Shakes">
             <h3>Protein Shakes</h3>
             <p>Whey or plant-based protein for muscle recovery.</p>
         </div>
         <div class="supplement-card">
-            <i class="fas fa-carrot"></i>
+            <img src="Images/diet3.jpg" alt="Vitamins & Minerals">
             <h3>Vitamins & Minerals</h3>
             <p>Ensure daily intake for overall health.</p>
         </div>
         <div class="supplement-card">
-            <i class="fas fa-lemon"></i>
+            <img src="Images/diet4.jpg" alt="Hydration">
             <h3>Hydration</h3>
             <p>Drink at least 2-3 liters of water daily.</p>
         </div>

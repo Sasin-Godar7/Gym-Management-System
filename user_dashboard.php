@@ -1,10 +1,13 @@
+
 <?php
 session_start();
-if(!isset($_SESSION['username'])){
+
+if(!isset($_SESSION['username']) || $_SESSION['role'] != 'user'){
     header("Location: login.php");
     exit();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,9 +39,12 @@ if(!isset($_SESSION['username'])){
     <!-- SIDEBAR -->
     <aside class="sidebar">
         <ul>
-            <li><a href="attendance.php"><i class="fas fa-calendar-check"></i> Attendance</a></li>
+            <li><a onclick="window.location.href='attendence.php'"><i class="fas fa-calendar-check"></i> Attendance</a></li>
             <li><a href="diet.php"><i class="fas fa-apple-alt"></i> Diet Plan</a></li>
             <li><a href="book_trainer.php"><i class="fas fa-user-friends"></i> Book Trainer</a></li>
+           
+            <li><a href="mybooking.php"> <i class="fas fa-calendar"></i> My Trainer Booking</a></li>
+
             <li><a href="#classes"><i class="fas fa-dumbbell"></i> Classes</a></li>
             <li><a href="#subscription"><i class="fas fa-credit-card"></i> Subscription</a></li>
         </ul>
@@ -55,7 +61,7 @@ if(!isset($_SESSION['username'])){
 
         <!-- Quick Action Cards -->
         <section class="quick-actions">
-            <div class="action-card" onclick="window.location.href='attendance.php'">
+            <div class="action-card" onclick="window.location.href='attendence.php'">
                 <i class="fas fa-calendar-check"></i>
                 <h3>Attendance</h3>
             </div>

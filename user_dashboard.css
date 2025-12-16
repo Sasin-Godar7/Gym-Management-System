@@ -60,6 +60,15 @@ h1,h2,h3,h4,h5,h6 {
 .logout-btn:hover {
     background: #33ed40;
 }
+.user-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer; /* shows it’s clickable */
+    border: 2px solid #fff;
+}
+
 
 /* Wrapper */
 .dashboard-wrapper {
@@ -101,7 +110,7 @@ h1,h2,h3,h4,h5,h6 {
 
 .sidebar li a:hover,
 .sidebar li a.active {
-    background: #32cc11;
+    background: #b0f29c;
     color: #0f0f0f;
 }
 

@@ -21,8 +21,10 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
 
         if(password_verify($password, $row['password'])){
             
-            $_SESSION['username'] = $row['username'];
-            $_SESSION['role'] = $row['role'];
+            $_SESSION['user_id']  = $row['id'];
+           $_SESSION['username'] = $row['username'];
+           $_SESSION['role']     = $row['role'];
+
 
             if($row['role'] === "admin"){
                 header("Location: admin_dashboard.php");

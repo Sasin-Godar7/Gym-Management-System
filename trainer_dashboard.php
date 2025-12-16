@@ -1,192 +1,111 @@
+
 <?php
 session_start();
 require "config.php";
 
-if(!isset($_SESSION['role']) || $_SESSION['role']!='trainer'){
+if(!isset($_SESSION['username']) || $_SESSION['role'] != 'trainer'){
     header("Location: login.php");
     exit();
 }
 
-$members = $conn->query("SELECT * FROM users WHERE role='user'");
+// Fetch all trainer bookings assigned to this trainer
+$trainer_id = $_SESSION['user_id'];
+$bookings = $conn->query("SELECT tb.*, u.username, u.email, u.contact 
+                          FROM trainer_bookings tb 
+                          JOIN users u ON tb.user_id = u.id
+                          WHERE tb.trainer_id = $trainer_id
+                          ORDER BY tb.created_at DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Trainer Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trainer Dashboard | Sasin Elite Gym</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <link rel="icon" type="image/png" href="images/fav.png">
 <style>
-    body {
-        margin: 0;
-        font-family: Poppins, sans-serif;
-        background: #f5f7fa;
-        display: flex;
-    }
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#0f0f0f;color:#fff;line-height:1.6;}
 
-    /* ------------------- SIDEBAR ------------------- */
-    .sidebar {
-        width: 250px;
-        height: 100vh;
-        background: #1f1f1f;
-        padding: 20px;
-        color: white;
-        position: fixed;
-        left: 0;
-        top: 0;
-    }
+/* Navbar */
+.top-navbar{
+  display:flex;justify-content:space-between;align-items:center;
+  background:#111;padding:15px 50px;position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 15px rgba(0,0,0,0.7);height:80px;
+}
+.top-navbar .logo img{width:180px;}
+.nav-right{display:flex;align-items:center;gap:20px;}
+.nav-right .welcome-text{font-weight:600;color:#32cc11;font-size:18px;}
+.nav-right a{color:#fff;text-decoration:none;}
+.logout-btn{background:#32cc11;padding:8px 22px;border-radius:25px;font-weight:600;transition:0.3s;}
+.logout-btn:hover{background:#33ed40;}
 
-    .sidebar h2 {
-        text-align: center;
-        margin-bottom: 25px;
-        font-size: 22px;
-        color: #32cc11;
-    }
+/* Hero Section */
+.hero{text-align:center;padding:60px 20px;margin:30px auto;max-width:1200px;}
+.hero h1{font-size:42px;color:#fff;margin-bottom:15px;}
+.hero p{font-size:20px;color:#ccc;}
 
-    .sidebar a {
-        display: block;
-        padding: 12px 15px;
-        margin: 8px 0;
-        text-decoration: none;
-        background: #292929;
-        color: #ddd;
-        border-radius: 6px;
-        transition: 0.3s;
-    }
+/* Booking Table */
+.table-container{max-width:1200px;margin:50px auto;padding:0 20px;overflow-x:auto;}
+table{width:100%;border-collapse:collapse;background:#1e1e1e;border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(50,204,17,0.2);}
+th,td{padding:12px 15px;text-align:left;}
+th{background:#32cc11;color:#000;}
+td{color:#fff;border-bottom:1px solid #333;}
+tr:hover{background:#2a2a2a;}
 
-    .sidebar a:hover {
-        background: #32cc11;
-        color: #fff;
-    }
+/* Status Buttons */
+.status-btn{padding:6px 12px;border:none;border-radius:8px;font-weight:600;cursor:pointer;transition:0.3s;}
+.approve{background:#4CAF50;color:#fff;}
+.reject{background:#f44336;color:#fff;}
+.status-btn:hover{opacity:0.8;}
 
-    /* ------------------- MAIN CONTENT ------------------- */
-    .main {
-        margin-left: 260px;
-        padding: 25px;
-        width: calc(100% - 260px);
-    }
-
-    .topbar {
-        background: white;
-        padding: 15px 25px;
-        border-radius: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .topbar h1 {
-        margin: 0;
-        font-size: 26px;
-        color: #333;
-    }
-
-    .logout-btn {
-        background: #e63946;
-        color: white;
-        padding: 10px 18px;
-        border-radius: 6px;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .logout-btn:hover {
-        background: #c82333;
-    }
-
-    /* ------------------- TABLE ------------------- */
-    .card {
-        background: white;
-        padding: 20px;
-        margin-top: 25px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 15px;
-    }
-
-    table th {
-        background: #32cc11;
-        color: #fff;
-        padding: 12px;
-        font-size: 16px;
-    }
-
-    table td {
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
-        text-align: center;
-    }
-
-    table tr:nth-child(even) {
-        background: #f9f9f9;
-    }
-
-    .btn {
-        padding: 7px 12px;
-        border-radius: 5px;
-        text-decoration: none;
-        color: white;
-        font-size: 14px;
-        font-weight: bold;
-    }
-
-    .btn.info { background: #2196f3; }
-    .btn.diet { background: #28a745; }
-
-    .btn:hover { opacity: 0.85; }
-
+/* Responsive */
+@media(max-width:768px){.top-navbar{flex-direction:column;gap:10px;padding:15px 20px;}}
 </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-    <h2>Trainer Panel</h2>
-    <a href="#">Dashboard</a>
-    <a href="#">Members</a>
-    <a href="#">Diet Plans</a>
-    <a href="#">Workout Plans</a>
-    <a href="#">Settings</a>
-</div>
+<header class="top-navbar">
+  <div class="logo"><img src="Images/fulllogo.png" alt="logo"></div>
+  <div class="nav-right">
+      <span class="welcome-text">Hi, <?php echo $_SESSION['username']; ?>!</span>
+      <a href="trainer_dashboard.php"><i class="fas fa-home fa-2x"></i></a>
+      <a href="logout.php" class="logout-btn">Logout</a>
+  </div>
+</header>
 
-<!-- MAIN CONTENT -->
-<div class="main">
-    <div class="topbar">
-        <h1>Trainer Dashboard</h1>
-        <a href="logout.php" class="logout-btn">Logout</a>
-    </div>
+<section class="hero">
+  <h1>Trainer Dashboard</h1>
+  <p>Manage your user bookings efficiently</p>
+</section>
 
-    <div class="card">
-        <h2>Members List</h2>
-
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Contact</th>
-                <th>Actions</th>
-            </tr>
-
-            <?php while($m = $members->fetch_assoc()): ?>
-            <tr>
-                <td><?= $m['id'] ?></td>
-                <td><?= $m['username'] ?></td>
-                <td><?= $m['email'] ?></td>
-                <td><?= $m['contact'] ?></td>
-                <td>
-                    <a href="view_member.php?id=<?= $m['id'] ?>" class="btn info">Personal Info</a>
-                    <a href="diet_plan.php?id=<?= $m['id'] ?>" class="btn diet">Diet Plan</a>
-                </td>
-            </tr>
-            <?php endwhile; ?>
-        </table>
-    </div>
+<div class="table-container">
+<table>
+<tr>
+    <th>User</th>
+    <th>Email</th>
+    <th>Contact</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+<?php while($row = $bookings->fetch_assoc()): ?>
+<tr>
+    <td><?= $row['username'] ?></td>
+    <td><?= $row['email'] ?></td>
+    <td><?= $row['contact'] ?></td>
+    <td><?= $row['status'] ?></td>
+    <td>
+      <?php if($row['status'] == 'Pending'): ?>
+        <a href="trainer_action.php?id=<?= $row['id'] ?>&action=accept" class="status-btn approve">Approve</a>
+        <a href="trainer_action.php?id=<?= $row['id'] ?>&action=reject" class="status-btn reject">Reject</a>
+      <?php else: ?>
+        <span><?= $row['status'] ?></span>
+      <?php endif; ?>
+    </td>
+</tr>
+<?php endwhile; ?>
+</table>
 </div>
 
 </body>
