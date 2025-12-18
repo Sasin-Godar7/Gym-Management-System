@@ -14,10 +14,10 @@ body {
     background: #111b1a;
     position: fixed;
     padding-top: 30px;
-    border-right: 2px solid #00ff84;
+    border-right: 2px solid #17e744;
 }
 .sidebar h2 {
-    color: #00ff84;
+    color: #17e744;
     text-align: center;
     margin-bottom: 40px;
     font-size: 24px;
@@ -33,13 +33,14 @@ body {
     transition: 0.3s;
 }
 .sidebar a:hover, .sidebar a.active {
-    background: #00ff84;
+    background: #17e744;
     color: #000;
     font-weight: 600;
 }
 
 /* TOPBAR */
 .topbar {
+    height: 70px;
     margin-left: 220px;
     background: #0f1b1a;
     padding: 15px 25px;
@@ -47,20 +48,23 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #00ff84;
+    border-bottom: 2px solid #17e744;
+    font-weight: 800;
+
 }
 .topbar button {
+    height: 45px;
     padding: 6px 15px;
-    background: #ff4444;
+    background: #2f9805;
     border: none;
     border-radius: 6px;
     color: #fff;
     cursor: pointer;
     font-weight: 600;
-    transition: 0.3s;
+    /* transition: 0.3s; */
 }
 .topbar button:hover {
-    background: #ff6666;
+    background: #003d02;
 }
 
 /* CONTENT AREA */
@@ -85,7 +89,7 @@ body {
     font-weight: 600;
 }
 .card:hover {
-    background: #00ff84;
+    background: #08da4e;
     color: #000;
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 255, 132, 0.3);
@@ -108,14 +112,14 @@ th, td {
 }
 th {
     background: #0f1b1a;
-    color: #00ff84;
+    color: #17e744;
 }
 tr:hover {
     background: #1e2e2c;
 }
 a.btn {
     padding: 5px 10px;
-    background: #00ff84;
+    background: #17e744;
     color: #000;
     text-decoration: none;
     border-radius: 5px;
@@ -124,7 +128,7 @@ a.btn {
     transition: 0.3s;
 }
 a.btn:hover {
-    background: #33ff9a;
+    background: #17e744;
 }
 a.btn.delete {
     background: #ff4444;
@@ -138,7 +142,7 @@ a.btn.delete:hover {
 h2 {
     font-size: 28px;
     margin-bottom: 15px;
-    color: #00ff84;
+    color: #17e744;
     letter-spacing: 1px;
 }
 

@@ -46,6 +46,11 @@ body{background:#0b0b0b;color:#fff}
 .nav-right span{color:#32cc11;font-weight:600}
 .logout{background:#32cc11;color:#000;padding:8px 22px;border-radius:25px;text-decoration:none;font-weight:600}
 
+.home-icon
+{
+    color:white;
+}
+
 /* Header */
 .header{
     text-align:center;padding:50px 20px
@@ -111,7 +116,7 @@ body{background:#0b0b0b;color:#fff}
     <img src="Images/fulllogo.png">
     <div class="nav-right">
         <span>Hi, <?= $_SESSION['username'] ?></span>
-        <a href="user_dashboard.php"><i class="fas fa-home fa-xl"></i></a>
+        <a  href="user_dashboard.php"><i class="fas fa-home fa-xl home-icon"></i></a>
         <a href="logout.php" class="logout">Logout</a>
     </div>
 </div>
