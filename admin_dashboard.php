@@ -1,28 +1,29 @@
 <?php
 session_start();
-require_once "config.php";
-
-if(!isset($_SESSION['username']) || $_SESSION['role'] != 'admin'){
-    header("Location: login.php");
+require "config.php";
+if(!isset($_SESSION['admin_username'])){
+    header("Location: adminlogin.php");
     exit();
 }
 
-// Handle Delete
+// Delete member
 if(isset($_GET['delete_member'])){
-    $id = $_GET['delete_member'];
+    $id = (int)$_GET['delete_member'];
     $conn->query("DELETE FROM users WHERE id=$id AND role='user'");
-    header("Location: admin_dashboard.php");
-}
-if(isset($_GET['delete_trainer'])){
-    $id = $_GET['delete_trainer'];
-    $conn->query("DELETE FROM users WHERE id=$id AND role='trainer'");
-    header("Location: admin_dashboard.php");
+    header("Location: admin_dashboard.php"); exit();
 }
 
-// Fetch stats
+// Delete trainer
+if(isset($_GET['delete_trainer'])){
+    $id = (int)$_GET['delete_trainer'];
+    $conn->query("DELETE FROM users WHERE id=$id AND role='trainer'");
+    header("Location: admin_dashboard.php"); exit();
+}
+
+// Stats
 $totalMembers = $conn->query("SELECT COUNT(*) AS total FROM users WHERE role='user'")->fetch_assoc()['total'];
 $totalTrainers = $conn->query("SELECT COUNT(*) AS total FROM users WHERE role='trainer'")->fetch_assoc()['total'];
-$totalRevenue = 280000; // example
+$totalRevenue = 280000;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +45,7 @@ $totalRevenue = 280000; // example
 </div>
 
 <div class="topbar">
-<span>Welcome, <?=$_SESSION['username']?></span>
+<span>Welcome, <?=$_SESSION['admin_username']?></span>
 <button onclick="window.location.href='logout.php'">Logout</button>
 </div>
 

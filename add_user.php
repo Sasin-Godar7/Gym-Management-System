@@ -1,40 +1,33 @@
+
 <?php
 session_start();
 require "config.php";
-
-if(!isset($_SESSION['username']) || $_SESSION['role'] != 'admin'){
-    header("Location: login.php");
+if(!isset($_SESSION['admin_username'])){
+    header("Location: adminlogin.php");
     exit();
 }
 
-// Get role from query string (user or trainer)
-$role = isset($_GET['role']) && in_array($_GET['role'], ['user','trainer']) ? $_GET['role'] : 'user';
+$role = $_GET['role'] ?? 'user';
+$message = "";
 
-$message = '';
-
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $username = trim($_POST['username']);
+    $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
     $email = trim($_POST['email']);
     $contact = trim($_POST['contact']);
-    $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
 
-    // Check if username/email exists
-    $check = $conn->prepare("SELECT * FROM users WHERE username=? OR email=?");
-    $check->bind_param("ss",$username,$email);
-    $check->execute();
-    $result = $check->get_result();
-
-    if($result->num_rows > 0){
-        $message = "Username or Email already exists!";
+    // Check if username already exists
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username=? LIMIT 1");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    if($stmt->get_result()->num_rows > 0){
+        $message = "Username already exists!";
     } else {
-        $stmt = $conn->prepare("INSERT INTO users (username,password,email,contact,role) VALUES (?,?,?,?,?)");
-        $stmt->bind_param("sssss",$username,$password,$email,$contact,$role);
-        if($stmt->execute()){
-            header("Location: admin_dashboard.php");
-            exit();
-        } else {
-            $message = "Error adding user!";
-        }
+        $stmt2 = $conn->prepare("INSERT INTO users (username,password,email,contact,role) VALUES (?,?,?,?,?)");
+        $stmt2->bind_param("sssss", $username,$password,$email,$contact,$role);
+        $stmt2->execute();
+        header("Location: admin_dashboard.php");
+        exit();
     }
 }
 ?>

@@ -1,46 +1,38 @@
 <?php
 session_start();
 require "config.php";
-
-if(!isset($_SESSION['username']) || $_SESSION['role'] != 'admin'){
-    header("Location: login.php");
+if(!isset($_SESSION['admin_username'])){
+    header("Location: adminlogin.php");
     exit();
 }
 
-$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$id = $_GET['id'] ?? 0;
+$stmt = $conn->prepare("SELECT * FROM users WHERE id=? LIMIT 1");
+$stmt->bind_param("i",$id);
+$stmt->execute();
+$user = $stmt->get_result()->fetch_assoc();
+if(!$user) exit("User not found!");
 
-// Fetch existing data
-$user = $conn->query("SELECT * FROM users WHERE id=$id")->fetch_assoc();
-if(!$user){ header("Location: admin_dashboard.php"); exit(); }
-
-$message = '';
-
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
+$message = "";
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
     $email = trim($_POST['email']);
     $contact = trim($_POST['contact']);
-    $password = trim($_POST['password']);
 
-    if($password != '') $password = password_hash($password, PASSWORD_DEFAULT);
-    else $password = $user['password'];
-
-    // Check duplicate username/email (exclude current)
-    $check = $conn->query("SELECT * FROM users WHERE (username='$username' OR email='$email') AND id != $id");
-    if($check->num_rows > 0){
-        $message = "Username or Email already exists!";
+    if($password){
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        $stmt2 = $conn->prepare("UPDATE users SET username=?, password=?, email=?, contact=? WHERE id=?");
+        $stmt2->bind_param("ssssi",$username,$password,$email,$contact,$id);
     } else {
-        $stmt = $conn->prepare("UPDATE users SET username=?, password=?, email=?, contact=? WHERE id=?");
-        $stmt->bind_param("ssssi",$username,$password,$email,$contact,$id);
-        if($stmt->execute()){
-            header("Location: admin_dashboard.php");
-            exit();
-        } else {
-            $message = "Error updating user!";
-        }
+        $stmt2 = $conn->prepare("UPDATE users SET username=?, email=?, contact=? WHERE id=?");
+        $stmt2->bind_param("sssi",$username,$email,$contact,$id);
     }
+    $stmt2->execute();
+    header("Location: admin_dashboard.php");
+    exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

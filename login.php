@@ -6,11 +6,11 @@ $message = ""; // Error message
 
 if(isset($_POST['username']) && isset($_POST['password'])) {
 
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
 
-    // DB bata user fetch
-    $sql = "SELECT * FROM users WHERE username=?";
+    // DB बाट user fetch
+    $sql = "SELECT * FROM users WHERE username=? LIMIT 1";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -19,23 +19,18 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     if($result->num_rows === 1){
         $row = $result->fetch_assoc();
 
+        // 🔑 Password verify (hashed)
         if(password_verify($password, $row['password'])){
             
             $_SESSION['user_id']  = $row['id'];
-           $_SESSION['username'] = $row['username'];
-           $_SESSION['role']     = $row['role'];
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['role']     = $row['role'];
 
-
-            if($row['role'] === "admin"){
-                header("Location: admin_dashboard.php");
-                exit();
-            }
-             elseif($row['role'] === "trainer"){
+            // Role-based redirect (only user & trainer)
+            if($row['role'] === "trainer"){
                 header("Location: trainer_dashboard.php");
                 exit();
-            }
-            
-            else {
+            } else {
                 header("Location: user_dashboard.php");
                 exit();
             }
@@ -57,7 +52,7 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <link rel="stylesheet" href="login.css">
-   <link rel="icon" type="image/png" href="images/fav.png">
+  <link rel="icon" type="image/png" href="images/fav.png">
 </head>
 <body>
 
