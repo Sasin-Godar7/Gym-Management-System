@@ -91,14 +91,46 @@ if(!isset($_SESSION['username']) || $_SESSION['role'] != 'user'){
         </section>
 
         <!-- Subscription -->
-        <section class="subscription-section" id="subscription">
-            <h2>Subscription Plans</h2>
-            <div class="sub-grid">
-                <div class="sub-card">Basic <span>Rs 1,200 / month</span></div>
-                <div class="sub-card popular">Standard <span>Rs 2,500 / month</span></div>
-                <div class="sub-card">Premium <span>Rs 4,000 / month</span></div>
+       <section class="pricing-container">
+        <h1 class="main-title">Subscription Packages</h1>
+        <p class="sub-title">Choose a plan that matches your fitness goals</p>
+
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h2 class="plan-name">Basic</h2>
+                <div class="price">Rs 1,200 <span>/ month</span></div>
+                <ul class="features">
+                    <li>Gym Floor Access</li>
+                    <li>Locker Room Facility</li>
+                    <li>Limited Group Classes</li>
+                </ul>
+                <button class="btn">Join Now</button>
             </div>
-        </section>
+
+            <div class="price-card popular">
+                <div class="badge">POPULAR</div>
+                <h2 class="plan-name">Standard</h2>
+                <div class="price">Rs 2,500 <span>/ month</span></div>
+                <ul class="features">
+                    <li>Unlimited Gym Access</li>
+                    <li>Weekly Group Classes</li>
+                    <li>1 Free PT Session / Month</li>
+                </ul>
+                <button class="btn green">Join Now</button>
+            </div>
+
+            <div class="price-card">
+                <h2 class="plan-name">Premium</h2>
+                <div class="price">Rs 4,000 <span>/ month</span></div>
+                <ul class="features">
+                    <li>Personal Trainer Included</li>
+                    <li>Nutrition Guidance</li>
+                    <li>Priority Support</li>
+                </ul>
+                <button class="btn">Join Now</button>
+            </div>
+        </div>
+    </section>
 
     </main>
 </div>

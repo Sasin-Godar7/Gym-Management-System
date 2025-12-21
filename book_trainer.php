@@ -225,6 +225,7 @@ if(isset($_POST['trainer_id'], $_POST['booking_date'], $_POST['booking_time'])) 
           <p>Contact:
             <?=$trainer['contact'] ?>
           </p>
+          <p class="experience">Experience: 2+ Years</p>
           <form method="post"> <input type="hidden" name="trainer_id" value="<?= $trainer['id'] ?>"> <input type="date"
               name="booking_date" required> <input type="time" name="booking_time" required> <button
               type="submit">Book</button> </form>

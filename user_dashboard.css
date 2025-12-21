@@ -210,47 +210,108 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 /* Subscription */
-.subscription-section {
-    margin-top: 50px;
-}
-
-.subscription-section h2 {
-    color: #32cc11;
-    margin-bottom: 25px;
-    font-size: 28px;
+.pricing-container {
     text-align: center;
+    max-width: 1100px;
+    width: 100%;
+    margin-top: 40px;
+    /* background-color: red; */
 }
 
-.sub-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+.main-title {
+    font-size: 2.5rem;
+    color: #39FF14; /* Neon Green */
+    margin-bottom: 10px;
+    padding-top: 50px;
 }
 
-.sub-card {
-    background: #1e1e1e;
-    border: 1px solid #32cc11;
-    border-radius: 15px;
-    padding: 25px;
-    text-align: center;
-    transition: .3s;
-    cursor: pointer;
-}
-
-.sub-card.popular {
-    border: 2px solid #33ed40;
-    transform: scale(1.05);
-}
-
-.sub-card span {
-    display: block;
-    margin-top: 10px;
+.sub-title {
     color: #ccc;
+    margin-bottom: 50px;
 }
 
-.sub-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(50, 204, 17, 0.3);
+/* Grid Layout */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+/* Card Styling */
+.price-card {
+    background-color: #161b22; /* Dark Greyish Blue */
+    padding: 40px 20px;
+    border-radius: 15px;
+    position: relative;
+    transition: transform 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.price-card:hover {
+    transform: translateY(-10px);
+}
+
+/* Highlighted Popular Card */
+.price-card.popular {
+    border: 2px solid #39FF14;
+}
+
+.badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #39FF14;
+    color: black;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.plan-name {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.price {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.price span {
+    font-size: 1rem;
+    color: #888;
+}
+
+.features {
+    list-style: none;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.features li {
+    margin-bottom: 12px;
+    color: #ddd;
+}
+
+/* Button Styling */
+.btn {
+    background-color: #222;
+    color: white;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn.green, .btn:hover {
+    background-color: #39FF14;
+    color: black;
 }
 
 /* Responsive */
