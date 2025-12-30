@@ -111,7 +111,7 @@ if(isset($_POST['trainer_id'], $_POST['booking_date'], $_POST['booking_time'])) 
         transition: 0.2s;
         font-weight: 700;
         text-decoration: none;
-        color: #000;
+        color: #ffffffff;
       }
 
 
@@ -207,8 +207,8 @@ if(isset($_POST['trainer_id'], $_POST['booking_date'], $_POST['booking_time'])) 
       <div class="logo"><img src="Images/fulllogo.png" alt="logo"></div>
       <div class="nav-right"> <span class="welcome-text">Hi,
           <?php echo $_SESSION['username']; ?> !
-        </span> <a href="user_dashboard.php" class="home-icon"><i class="fas fa-home fa-2x"></i></a> <a
-          href="logout.php" class="logout-btn">Logout</a> </div>
+         </span><a href="user_dashboard.php"><i class="fas fa-home fa-xl home-icon"></i></a>
+         <a href="logout.php" class="logout-btn">Logout</a> </div>
     </header>
     <div class="container">
       <h2>Book a Trainer</h2>

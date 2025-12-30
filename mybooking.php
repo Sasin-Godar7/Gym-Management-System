@@ -182,7 +182,7 @@ $bookings = $conn->query($sql);
       display: inline-block;
       margin-top: 20px;
       background: #32cc11;
-      color: #000;
+      color: #ffffffff;
       padding: 10px 25px;
       border-radius: 25px;
       text-decoration: none;

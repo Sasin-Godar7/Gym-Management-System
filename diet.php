@@ -228,7 +228,7 @@ body {
     <div class="logo"><img src="Images/fulllogo.png" alt="logo"></div>
     <div class="nav-right">
         <span class="welcome-text">Hi, <?php echo $_SESSION['username']; ?>!</span>
-        <a href="user_dashboard.php"><i class="fas fa-home fa-2x"></i></a>
+          </span><a href="user_dashboard.php"><i class="fas fa-home fa-xl home-icon"></i></a>
         <a href="logout.php" class="logout-btn">Logout</a>
     </div>
 </header>

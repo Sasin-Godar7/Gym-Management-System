@@ -7,26 +7,16 @@ if(!isset($_SESSION['username']) || $_SESSION['role'] != 'trainer'){
     exit();
 }
 
-if(!isset($_GET['id']) || !isset($_GET['action'])){
-    header("Location: trainer_dashboard.php");
-    exit();
-}
-
 $id = intval($_GET['id']);
 $action = $_GET['action'];
 
-if($action == 'accept'){
-    $status = 'Approved';
-}
-elseif($action == 'reject'){
-    $status = 'Rejected';
-}
-else{
-    header("Location: trainer_dashboard.php");
-    exit();
-}
+$status = ($action == 'accept') ? 'Approved' : 'Rejected';
 
-$conn->query("UPDATE trainer_bookings SET status='$status' WHERE id=$id");
+$conn->query("
+  UPDATE trainer_bookings 
+  SET status='$status', is_seen=0 
+  WHERE id=$id
+");
 
 header("Location: trainer_dashboard.php");
 exit();
