@@ -373,57 +373,60 @@
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="footer-container">
+<footer class="footer" style="background:#111;color:#fff;padding:30px 20px;">
+    <div class="footer-container" style="display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;">
 
-            <!-- About -->
-            <div class="footer-section">
-                <h3>Sasin Elite Gym</h3>
-                <p>Your fitness journey starts here. We provide modern equipment, clean workout spaces, and expert
-                    guidance to help you achieve your goals.</p>
-            </div>
-
-            <!-- Quick Links -->
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-
-            <!-- Contact -->
-            <div class="footer-section" id="contact">
-                <h4>Contact</h4>
-                <ul class="contact-info">
-                    <li>📍 Chitwan, Nepal</li>
-                    <li>📞 +977-9803906919</li>
-                    <li>📧 sasinelite@gmail.com</li>
-                </ul>
-            </div>
-
-            <!-- Social -->
-
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                
-            </div>
-
-
+        <!-- About -->
+        <div class="footer-section" style="flex:1;min-width:250px;">
+            <h3>Sasin Elite Gym</h3>
+            <p>Your fitness journey starts here. We provide modern equipment, clean workout spaces, and expert guidance to help you achieve your goals.</p>
         </div>
 
-        <!-- Bottom Line -->
-        <div class="footer-bottom">
-            <p>© 2025 Sasin Elite Gym | All Rights Reserved</p>
+        <!-- Quick Links -->
+        <div class="footer-section" style="flex:1;min-width:200px;">
+            <h4>Quick Links</h4>
+            <ul style="list-style:none;padding:0;">
+                <li><a href="#home" style="color:#fff;text-decoration:none;">Home</a></li>
+                <li><a href="#about" style="color:#fff;text-decoration:none;">About Us</a></li>
+                <li><a href="#services" style="color:#fff;text-decoration:none;">Services</a></li>
+                <li><a href="#gallery" style="color:#fff;text-decoration:none;">Gallery</a></li>
+                <li><a href="#contact" style="color:#fff;text-decoration:none;">Contact</a></li>
+            </ul>
         </div>
-    </footer>
+
+        <!-- Contact + Map -->
+        <div class="footer-section" style="flex:1;min-width:250px;">
+            <h4>Contact & Location</h4>
+            <ul class="contact-info" style="list-style:none;padding:0;margin-bottom:10px;">
+                <li>📍 Chitwan, Nepal</li>
+                <li>📞 +977-9803906919</li>
+                <li>📧 sasinelite@gmail.com</li>
+            </ul>
+            <div class="map-container" style="width:100%;height:200px;">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.123456789!2d84.408157!3d27.671907!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399594b123456789%3A0xabcdef123456789!2sChitwan%20Fitness!5e0!3m2!1sen!2snp!4v1700000000000!5m2!1sen!2snp"
+                    width="100%" height="130%" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Social Icons -->
+    <div class="social-icons" style="text-align:center;margin-top:20px;">
+        <a href="#"><i class="fab fa-facebook-f" style="margin:0 8px;color:#fff;"></i></a>
+        <a href="#"><i class="fab fa-instagram" style="margin:0 8px;color:#fff;"></i></a>
+        <a href="#"><i class="fab fa-twitter" style="margin:0 8px;color:#fff;"></i></a>
+        <a href="#"><i class="fab fa-github" style="margin:0 8px;color:#fff;"></i></a>
+        <a href="#"><i class="fab fa-linkedin" style="margin:0 8px;color:#fff;"></i></a>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom" style="text-align:center;margin-top:15px;color:#ccc;">
+        <p>© 2025 Sasin Elite Gym | All Rights Reserved</p>
+    </div>
+</footer>
+
 
     <script>
         function toggleMenu() {

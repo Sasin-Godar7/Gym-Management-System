@@ -10,18 +10,34 @@ if(!isset($_SESSION['username']) || $_SESSION['role'] != 'user'){
 $user_id = intval($_SESSION['user_id']);
 $date = date("Y-m-d");
 
-// Mark today's attendance
+/* =========================
+   MARK TODAY PRESENT
+========================= */
 if(isset($_POST['mark'])){
     $check = $conn->query("SELECT * FROM attendance WHERE user_id=$user_id AND date='$date'");
     if($check->num_rows == 0){
-        $conn->query("INSERT INTO attendance(user_id, date, status) VALUES($user_id, '$date', 'Present')");
-        header("Location: attendance.php");
-        exit();
+        $conn->query("INSERT INTO attendance(user_id, date, status) VALUES($user_id,'$date','Present')");
     }
+    header("Location: attendance.php");
+    exit();
 }
 
-// Fetch last 30 days attendance
-$attendance = $conn->query("SELECT * FROM attendance WHERE user_id=$user_id ORDER BY date DESC LIMIT 30");
+/* =========================
+   FETCH ATTENDANCE DATA
+========================= */
+$attendanceData = [];
+$result = $conn->query("SELECT date, status FROM attendance WHERE user_id=$user_id");
+while($row = $result->fetch_assoc()){
+    $attendanceData[$row['date']] = $row['status'];
+}
+
+/* =========================
+   LAST 30 DAYS ARRAY
+========================= */
+$dates = [];
+for($i=0; $i<30; $i++){
+    $dates[] = date("Y-m-d", strtotime("-$i days"));
+}
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +45,7 @@ $attendance = $conn->query("SELECT * FROM attendance WHERE user_id=$user_id ORDE
 <head>
 <meta charset="UTF-8">
 <title>Attendance | Sasin Elite Gym</title>
+<link rel="icon" type="image/png" href="Images/fav.png">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
 <style>
@@ -44,17 +61,15 @@ body{background:#0b0b0b;color:#fff}
 .navbar img{width:170px}
 .nav-right{display:flex;align-items:center;gap:20px}
 .nav-right span{color:#32cc11;font-weight:600}
-.logout{background:#32cc11;color:#000;padding:8px 22px;border-radius:25px;text-decoration:none;font-weight:600}
-
-.home-icon
-{
-    color:white;
+.logout{
+    background:#32cc11;color:#000;
+    padding:8px 22px;border-radius:25px;
+    text-decoration:none;font-weight:600
 }
+.home-icon{color:white}
 
 /* Header */
-.header{
-    text-align:center;padding:50px 20px
-}
+.header{text-align:center;padding:50px 20px}
 .header h1{font-size:40px}
 .header p{color:#aaa}
 
@@ -67,9 +82,7 @@ body{background:#0b0b0b;color:#fff}
 }
 
 /* Attendance Grid */
-.attendance-wrapper{
-    max-width:1200px;margin:auto;padding:0 20px
-}
+.attendance-wrapper{max-width:1200px;margin:auto;padding:0 20px}
 .attendance-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
@@ -85,14 +98,10 @@ body{background:#0b0b0b;color:#fff}
 }
 .att-card:hover{transform:translateY(-6px)}
 
-.day{
-    font-size:18px;font-weight:600;margin-bottom:8px
-}
-.date{
-    color:#aaa;font-size:14px;margin-bottom:15px
-}
+.day{font-size:18px;font-weight:600;margin-bottom:8px}
+.date{color:#aaa;font-size:14px;margin-bottom:15px}
 
-/* Status badge */
+/* Status */
 .badge{
     padding:8px 18px;border-radius:20px;
     font-weight:700;font-size:14px;
@@ -102,10 +111,7 @@ body{background:#0b0b0b;color:#fff}
 .absent{background:#ff3b3b}
 
 /* Info */
-.info{
-    text-align:center;color:#32cc11;
-    font-weight:600;margin-bottom:30px
-}
+.info{text-align:center;color:#32cc11;font-weight:600;margin-bottom:30px}
 </style>
 </head>
 
@@ -116,7 +122,7 @@ body{background:#0b0b0b;color:#fff}
     <img src="Images/fulllogo.png">
     <div class="nav-right">
         <span>Hi, <?= $_SESSION['username'] ?></span>
-        <a  href="user_dashboard.php"><i class="fas fa-home fa-xl home-icon"></i></a>
+        <a href="user_dashboard.php"><i class="fas fa-home fa-xl home-icon"></i></a>
         <a href="logout.php" class="logout">Logout</a>
     </div>
 </div>
@@ -127,9 +133,10 @@ body{background:#0b0b0b;color:#fff}
     <p>Your last 30 days gym attendance</p>
 </div>
 
-<?php 
+<?php
 $today_check = $conn->query("SELECT * FROM attendance WHERE user_id=$user_id AND date='$date'");
-if($today_check->num_rows == 0): ?>
+if($today_check->num_rows == 0):
+?>
 <form method="post">
     <button class="mark-btn" name="mark">Mark Today Present</button>
 </form>
@@ -140,15 +147,17 @@ if($today_check->num_rows == 0): ?>
 <!-- Attendance Cards -->
 <div class="attendance-wrapper">
     <div class="attendance-grid">
-        <?php while($row = $attendance->fetch_assoc()): ?>
+        <?php foreach($dates as $d):
+            $status = isset($attendanceData[$d]) ? $attendanceData[$d] : "Absent";
+        ?>
         <div class="att-card">
-            <div class="day"><?= date("l",strtotime($row['date'])) ?></div>
-            <div class="date"><?= $row['date'] ?></div>
-            <span class="badge <?= strtolower($row['status']) ?>">
-                <?= $row['status'] ?>
+            <div class="day"><?= date("l", strtotime($d)) ?></div>
+            <div class="date"><?= $d ?></div>
+            <span class="badge <?= strtolower($status) ?>">
+                <?= $status ?>
             </span>
         </div>
-        <?php endwhile; ?>
+        <?php endforeach; ?>
     </div>
 </div>
 
