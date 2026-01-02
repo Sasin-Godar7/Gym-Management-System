@@ -268,8 +268,12 @@ $bookings =$conn->query("
     <div class="navbar"> <img src="Images/fulllogo.png">
       <div class="nav-right"> <span>Welcome,
           <?=$_SESSION['username'] ?>
-        </span> <a href="user_dashboard.php"><i class="fas fa-home fa-xl home-icon"></i></a> <a href="logout.php"
-          class="logout">Logout</a> </div>
+        </span> <a href="user_dashboard.php"><i class="fas fa-home fa-xl home-icon"></i></a>
+         <a href="logout.php"
+          class="logout"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24" style="vertical-align:middle; margin-right:6px;">
+        <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3h-8v2h8v14h-8v2h8c1.104 0 2-.896 2-2V5c0-1.104-.896-2-2-2z"/>
+    </svg>Logout</a> 
+  </div>
     </div>
     <div class="profile">
       <div class="avatar">
@@ -316,7 +320,6 @@ $bookings =$conn->query("
           <th>Date</th>
           <th>Time</th>
           <th>Status</th>
-          <th>Action</th>
         </tr>
         <?php if($bookings->num_rows==0): ?>
         <tr>
@@ -337,15 +340,7 @@ $bookings =$conn->query("
           <td><span class="badge <?= strtolower($b['status']) ?>">
               <?=$b['status'] ?>
             </span></td>
-          <td>
-            <?php if($b['status']=='Pending'): ?> <a class="btn approve" onclick="return confirm('Approve booking?')"
-              href="trainer_action.php?id=<?= $b['id'] ?>&action=accept">Approve</a> <a class="btn reject"
-              onclick="return confirm('Reject booking?')"
-              href="trainer_action.php?id=<?= $b['id'] ?>&action=reject">Reject</a>
-            <?php else: ?> —
-            <?php endif; ?>
-          </td>
-        </tr>
+          </tr>
         <?php endwhile; ?>
       </table>
     </div>

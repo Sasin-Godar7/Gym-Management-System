@@ -54,88 +54,84 @@ body {
 .topbar button {
     height: 45px;
     padding: 6px 15px;
-    background: #2f9805;
+    background: #3cb60b;
     border: none;
     border-radius: 6px;
     color: #fff;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 800;
+    font-size: 1rem;
 }
 .topbar button i { margin-right: 5px; }
-.topbar button:hover { background: #003d02; }
+.topbar button:hover { background: #0d6410; }
 
 /* CONTENT AREA */
 .content { margin-left: 220px; padding: 25px 30px; }
+.dashboard-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
 
-/* CARDS */
-.card1 {
-    display: inline-block;
-    background: #121f1d;
+/* Common card */
+.card {
+    min-width: 240px;
+    padding: 22px 26px;
+    border-radius: 14px;
     color: #fff;
-    padding: 25px 30px;
-    margin: 15px;
-    border-radius: 12px;
     cursor: pointer;
-    min-width: 180px;
-    text-align: center;
-    transition: 0.3s;
-    font-size: 18px;
-    font-weight: 600;
-    border: 2px solid rgb(255, 255, 255);
-    background-color: blueviolet;
-}  
-.card2 {
-    display: inline-block;
-    background: #121f1d;
-    color: #fff;
-    padding: 25px 30px;
-    margin: 15px;
-    border-radius: 12px;
-    cursor: pointer;
-    min-width: 180px;
-    text-align: center;
-    transition: 0.3s;
-    font-size: 18px;
-    font-weight: 600;
-    border: 2px solid rgb(255, 255, 255);
-      background-color: rgb(14, 96, 102);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    transition: 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
 }
-.card3 {
-    display: inline-block;
-    background: #121f1d;
-    color: #fff;
-    padding: 25px 30px;
-    margin: 15px;
-    border-radius: 12px;
-    cursor: pointer;
-    min-width: 180px;
-    text-align: center;
-    transition: 0.3s;
-    font-size: 18px;
-    font-weight: 600;
-    border: 2px solid rgb(255, 255, 255);
-    background-color: rgb(205, 146, 35);;
-}
-.card4 {
-    display: inline-block;
-    background: #121f1d;
-    color: #fff;
-    padding: 25px 30px;
-    margin: 15px;
-    border-radius: 12px;
-    cursor: pointer;
-    min-width: 180px;
-    text-align: center;
-    transition: 0.3s;
-    font-size: 18px;
-    font-weight: 600;
-    border: 2px solid rgb(255, 255, 255);
-    background-color: rgb(147, 6, 107);;
-}
+
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 255, 132, 0.3);
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
 }
+
+/* Icon */
+.card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    background: rgba(255,255,255,0.25);
+}
+
+/* Text */
+.card-title {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.card-value {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+/* Gradients */
+.card1 {
+    background: linear-gradient(135deg, #7b2ff7, #9f5cff);
+}
+
+.card2 {
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+}
+
+.card3 {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+}
+
+.card4 {
+    background: linear-gradient(135deg, #9d174d, #db2777);
+}
+
 
         /* Charts section */
         .charts {

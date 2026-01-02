@@ -38,7 +38,7 @@
                 <a href="#about">About Us</a>
                 <a href="#services">Services</a>
                 <a href="#gallery">Gallery</a>
-                <a href="#contact">Contact Us</a>
+                <a href="#contact-us">Contact Us</a>
             </div>
 
             <!-- Join Button -->
@@ -395,7 +395,7 @@
         </div>
 
         <!-- Contact + Map -->
-        <div class="footer-section" style="flex:1;min-width:250px;">
+        <div class="footer-section" id="contact-us" style="flex:1;min-width:250px ;">
             <h4>Contact & Location</h4>
             <ul class="contact-info" style="list-style:none;padding:0;margin-bottom:10px;">
                 <li>📍 Chitwan, Nepal</li>

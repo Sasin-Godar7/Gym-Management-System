@@ -204,7 +204,10 @@ for($i=0; $i<30; $i++) {
                 <div class="nav-right"><span>Hi,
                         <?=$_SESSION['username'] ?>
                     </span><a href="user_dashboard.php"><i class="fas fa-home fa-xl home-icon"></i></a><a
-                        href="logout.php" class="logout">Logout</a></div>
+                        href="logout.php" class="logout">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24" style="vertical-align:middle; margin-right:6px;">
+        <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3h-8v2h8v14h-8v2h8c1.104 0 2-.896 2-2V5c0-1.104-.896-2-2-2z"/>
+    </svg>Logout</a></div>
             </div>
             <!-- Header -->
                 <div class="header">

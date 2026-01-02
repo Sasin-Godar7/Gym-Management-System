@@ -85,6 +85,9 @@ while($row = $res->fetch_assoc()){
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!--cdn -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
 
@@ -115,23 +118,51 @@ while($row = $res->fetch_assoc()){
 <div class="content">
 
 <!-- ================= DASHBOARD ================= -->
-<div id="dashboard">
-    <h2>Dashboard</h2>
+<div id="dashboard" class="dashboard-cards">
+
     <div class="card card1" onclick="show('members')">
-        Total Members<br><?= $totalMembers ?>
-    </div>
-    <div class="card card2" onclick="show('trainers')">
-        Total Trainers<br><?= $totalTrainers ?>
-    </div>
-    <div class="card card3">
-        Revenue<br>Rs <?= $totalRevenue ?>
-    </div>
-    <div class="card card4">
-        New Members This Month<br><?= $newMembers ?>
+        <div class="card-icon">
+            <i class="fa-solid fa-users"></i>
+        </div>
+        <div class="card-text">
+            <div class="card-title">Total Members</div>
+            <div class="card-value"><?= $totalMembers ?></div>
+        </div>
     </div>
 
+    <div class="card card2" onclick="show('trainers')">
+        <div class="card-icon">
+            <i class="fa-solid fa-user-tie"></i>
+        </div>
+        <div class="card-text">
+            <div class="card-title">Total Trainers</div>
+            <div class="card-value"><?= $totalTrainers ?></div>
+        </div>
+    </div>
+
+    <div class="card card3">
+        <div class="card-icon">
+            <i class="fa-solid fa-chart-line"></i>
+        </div>
+        <div class="card-text">
+            <div class="card-title">Revenue</div>
+            <div class="card-value">Rs <?= $totalRevenue ?></div>
+        </div>
+    </div>
+
+    <div class="card card4">
+        <div class="card-icon">
+            <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <div class="card-text">
+            <div class="card-title">New Members This Month</div>
+            <div class="card-value"><?= $newMembers ?></div>
+        </div>
+    </div>
 
 </div>
+
+
 
 <!-- ================= MEMBERS ================= -->
 <div id="members" style="display:none;">
