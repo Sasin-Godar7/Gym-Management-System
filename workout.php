@@ -43,7 +43,7 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Athlete';
             justify-content: space-between;
             align-items: center;
             /* background: rgba(0, 0, 0, 0.95); */
-            /* backdrop-filter: blur(10px); */
+            backdrop-filter: blur(10px);
             padding: 0 50px;
             position: fixed; /* Changed to fixed for better UX */
             width: 100%;

@@ -40,7 +40,7 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Athlete';
             justify-content: space-between;
             align-items: center;
             /* background: rgba(17, 17, 17, 0.95); */
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(2px);
             padding: 0 50px;
             position: fixed;
             width: 100%;
@@ -394,6 +394,12 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Athlete';
             <div class="meal-item"><i class="fas fa-cloud-sun"></i> <div><span class="meal-label">Lunch</span> Fish + Veggies</div></div>
             <div class="meal-item"><i class="fas fa-moon"></i> <div><span class="meal-label">Dinner</span> Chicken Salad</div></div>
         </div>
+        <div class="day-card">
+    <h3>Saturday</h3>
+    <div class="meal-item"><i class="fas fa-sun"></i> <div><span class="meal-label">Breakfast</span> Scrambled Eggs + Avocado Toast</div></div>
+    <div class="meal-item"><i class="fas fa-cloud-sun"></i><div><span class="meal-label">Lunch</span> Grilled Steak + Sweet Potato</div></div>
+    <div class="meal-item"><i class="fas fa-moon"></i><div><span class="meal-label">Dinner</span> Lean Turkey Burger + Greens</div></div>
+
 
     </div>
 </section>
