@@ -17,7 +17,6 @@ if(!isset($_SESSION['username']) || $_SESSION['role'] != 'user'){
 <title>User Dashboard | Sasin Elite Gym</title>
 <link rel="icon" type="image/png" href="images/fav.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
 <link rel="stylesheet" href="user_dashboard.css">
  
 
@@ -30,9 +29,9 @@ if(!isset($_SESSION['username']) || $_SESSION['role'] != 'user'){
     <div class="nav-right">
         <span class="welcome-text">Hi, <?php echo $_SESSION['username']; ?>!</span>
         <a href="my_account.php"><i class="fas fa-user-circle fa-2x"></i></a>
-        <a href="logout.php" class="logout-btn"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24" style="vertical-align:middle; margin-right:6px;">
-        <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3h-8v2h8v14h-8v2h8c1.104 0 2-.896 2-2V5c0-1.104-.896-2-2-2z"/>
-    </svg>Logout</a>
+       <a href="logout.php" class="logout-btn">
+            <i class="fas fa-sign-out-alt" style="margin-right:8px;"></i> Logout
+        </a>
     </div>
 </header>
 
@@ -47,7 +46,7 @@ if(!isset($_SESSION['username']) || $_SESSION['role'] != 'user'){
            
             <li><a href="mybooking.php"> <i class="fas fa-calendar"></i> My Trainer Booking</a></li>
 
-            <li><a href="#classes"><i class="fas fa-dumbbell"></i> Classes</a></li>
+            <li><a href="workout.php"><i class="fas fa-dumbbell"></i> WorkOut</a></li>
             <li><a href="#subscription"><i class="fas fa-credit-card"></i> Subscription</a></li>
         </ul>
     </aside>
@@ -75,9 +74,9 @@ if(!isset($_SESSION['username']) || $_SESSION['role'] != 'user'){
                 <i class="fas fa-user-friends"></i>
                 <h3>Book Trainer</h3>
             </div>
-            <div class="action-card" onclick="window.location.href='#classes'">
+            <div class="action-card" onclick="window.location.href='workout.php'">
                 <i class="fas fa-dumbbell"></i>
-                <h3>Classes</h3>
+                <h3>Workout</h3>
             </div>
         </section>
 

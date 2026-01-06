@@ -92,18 +92,24 @@ if(isset($_POST['trainer_id'], $_POST['booking_date'], $_POST['booking_time'])) 
         text-decoration: none;
       }
 
-      .logout-btn {
-        background: #32cc11;
-        padding: 8px 22px;
-        border-radius: 25px;
-        font-weight: 600;
-        transition: 0.3s;
-      }
+       .logout-btn {
+            background: #32cc11;
+            padding: 10px 22px;
+            border-radius: 5px; /* Squared off for a more aggressive gym look */
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            transition: 0.3s;
+            color:white;
+            text-decoration:none;
+        }
 
-      .logout-btn:hover {
-        background: #33ed40;
-      }
-
+        .logout-btn:hover {
+            background: #28a70e;
+            
+        }
       /* Home Icon bigger */
       .home-icon {
         padding: 10px 14px;
@@ -209,9 +215,9 @@ if(isset($_POST['trainer_id'], $_POST['booking_date'], $_POST['booking_time'])) 
           <?php echo $_SESSION['username']; ?> !
          </span><a href="user_dashboard.php"><i class="fas fa-home fa-xl home-icon"></i></a>
          <a href="logout.php" class="logout-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24" style="vertical-align:middle; margin-right:6px;">
-        <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3h-8v2h8v14h-8v2h8c1.104 0 2-.896 2-2V5c0-1.104-.896-2-2-2z"/>
-    </svg>Logout</a> </div>
+            <i class="fas fa-sign-out-alt" style="margin-right:8px;"></i> Logout
+        </a>
+        </div>
     </header>
     <div class="container">
       <h2>Book a Trainer</h2>

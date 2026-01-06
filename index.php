@@ -15,6 +15,9 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 
     <!--connect with css-->
      <link rel="stylesheet" href="index.css">
@@ -372,8 +375,10 @@
 
         </div>
     </section>
+    
+    <!-- footer section -->
 
-<footer class="footer" style="background:#111;color:#fff;padding:30px 20px;">
+  <footer class="footer" style="background:#111;color:#fff;padding:30px 20px;">
     <div class="footer-container" style="display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;">
 
         <!-- About -->
@@ -414,11 +419,21 @@
 
     <!-- Social Icons -->
     <div class="social-icons" style="text-align:center;margin-top:20px;">
-        <a href="#"><i class="fab fa-facebook-f" style="margin:0 8px;color:#fff;"></i></a>
-        <a href="#"><i class="fab fa-instagram" style="margin:0 8px;color:#fff;"></i></a>
-        <a href="#"><i class="fab fa-twitter" style="margin:0 8px;color:#fff;"></i></a>
-        <a href="#"><i class="fab fa-github" style="margin:0 8px;color:#fff;"></i></a>
-        <a href="#"><i class="fab fa-linkedin" style="margin:0 8px;color:#fff;"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"  style="color:#fff;font-size:28px;display:inline-block;transition:0.3s;"
+   onmouseover="this.style.transform='scale(1.2)'; this.style.color='#1cbe2c';"
+   onmouseout="this.style.transform='scale(1)'; this.style.color='#fff';"></i></a>
+        <a href="#"><i class="fab fa-instagram"  style="color:#fff;font-size:28px;display:inline-block;transition:0.3s;"
+   onmouseover="this.style.transform='scale(1.2)'; this.style.color='#1cbe2c';"
+   onmouseout="this.style.transform='scale(1)'; this.style.color='#fff';"></i></a>
+        <a href="#"><i class="fab fa-twitter"  style="color:#fff;font-size:28px;display:inline-block;transition:0.3s;"
+   onmouseover="this.style.transform='scale(1.2)'; this.style.color='#1cbe2c';"
+   onmouseout="this.style.transform='scale(1)'; this.style.color='#fff';"></i></a>
+        <a href="#"><i class="fab fa-tiktok"  style="color:#fff;font-size:28px;display:inline-block;transition:0.3s;"
+   onmouseover="this.style.transform='scale(1.2)'; this.style.color='#1cbe2c';"
+   onmouseout="this.style.transform='scale(1)'; this.style.color='#fff';"></i></a>
+        <a href="#"><i class="fab fa-linkedin"  style="color:#fff;font-size:28px;display:inline-block;transition:0.3s;"
+   onmouseover="this.style.transform='scale(1.2)'; this.style.color='#1cbe2c';"
+   onmouseout="this.style.transform='scale(1)'; this.style.color='#fff';"></i></a>
     </div>
 
     <!-- Footer Bottom -->

@@ -1,4 +1,5 @@
-<?php session_start();
+<?php 
+session_start();
 require "config.php";
 
 if( !isset($_SESSION['username']) || $_SESSION['role'] !='user') {
@@ -6,240 +7,218 @@ if( !isset($_SESSION['username']) || $_SESSION['role'] !='user') {
     exit();
 }
 
-$user_id =intval($_SESSION['user_id']);
-$date =date("Y-m-d");
+$user_id = intval($_SESSION['user_id']);
+$date_today = date("Y-m-d");
+$month = isset($_GET['month']) ? intval($_GET['month']) : date('m');
+$year = isset($_GET['year']) ? intval($_GET['year']) : date('Y');
 
 /* =========================
    MARK TODAY PRESENT
 ========================= */
 if(isset($_POST['mark'])) {
-    $check =$conn->query("SELECT * FROM attendance WHERE user_id=$user_id AND date='$date'");
-
-    if($check->num_rows ==0) {
-        $conn->query("INSERT INTO attendance(user_id, date, status) VALUES($user_id,'$date','Present')");
+    $check = $conn->query("SELECT * FROM attendance WHERE user_id=$user_id AND date='$date_today'");
+    if($check->num_rows == 0) {
+        $conn->query("INSERT INTO attendance(user_id, date, status) VALUES($user_id,'$date_today','Present')");
     }
-
     header("Location: attendance.php");
     exit();
 }
 
 /* =========================
-   FETCH ATTENDANCE DATA
+   CALENDAR LOGIC
 ========================= */
-$attendanceData =[];
-$result =$conn->query("SELECT date, status FROM attendance WHERE user_id=$user_id");
+$first_day_of_month = mktime(0, 0, 0, $month, 1, $year);
+$number_of_days = date('t', $first_day_of_month);
+$date_info = getdate($first_day_of_month);
+$day_of_week = $date_info['wday']; // 0 (Sun) to 6 (Sat)
 
-while($row =$result->fetch_assoc()) {
-    $attendanceData[$row['date']]=$row['status'];
+// Fetch attendance for this specific month
+$attendanceData = [];
+$result = $conn->query("SELECT date FROM attendance WHERE user_id=$user_id AND MONTH(date) = $month AND YEAR(date) = $year AND status='Present'");
+while($row = $result->fetch_assoc()) {
+    $attendanceData[] = $row['date'];
 }
 
-/* =========================
-   LAST 30 DAYS ARRAY
-========================= */
-$dates =[];
-
-for($i=0; $i<30; $i++) {
-    $dates[]=date("Y-m-d", strtotime("-$i days"));
-}
-
+$presentCount = count($attendanceData);
 ?>
 
 <!DOCTYPE html>
-    <html lang="en">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Elite Calendar | Sasin Gym</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/fav.png">
+    <style>
+        :root { --primary: #32cc11; --bg: #0a0a0a; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Rajdhani', sans-serif; }
+        body { background: var(--bg); color: #fff; padding-bottom: 50px; }
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Attendance | Sasin Elite Gym</title>
-        <link rel="icon" type="image/png" href="Images/fav.png">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                font-family: Poppins, sans-serif;
+      
+      /* Navbar */
+      .top-navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #111;
+        padding: 15px 50px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
+        height: 80px;
+      }
+
+      .top-navbar .logo img {
+        width: 180px;
+      }
+
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .nav-right .welcome-text {
+        font-weight: 700;
+        color: #32cc11;
+        font-size: 23px;
+      }
+
+      .nav-right a {
+        color: #fff;
+        text-decoration: none;
+      }
+
+       .logout-btn {
+            background: #32cc11;
+            padding: 10px 22px;
+            border-radius: 5px; /* Squared off for a more aggressive gym look */
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            transition: 0.3s;
+            color:white;
+            text-decoration:none;
+        }
+
+        .logout-btn:hover {
+            background: #28a70e;
+            
+        }
+      /* Home Icon bigger */
+      .home-icon {
+        padding: 10px 14px;
+        border-radius: 10px;
+        transition: 0.2s;
+        font-weight: 700;
+        text-decoration: none;
+        color: #ffffffff;
+      }
+
+        /* Header */
+        .calendar-header { text-align: center; padding: 40px 20px; }
+        .calendar-header h1 { font-family: 'Orbitron'; font-size: 2.5rem; color: #fff; }
+        .month-nav { display:flex; align-items:center; justify-content:center; gap:20px; margin-top:10px; font-family:'Orbitron'; color: var(--primary); }
+        .month-nav a { color: #fff; text-decoration:none; font-size: 20px; }
+
+        /* Stats Bar */
+        .stats-bar { max-width: 800px; margin: 0 auto 30px; display: flex; justify-content: space-around; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; border: 1px solid #222; }
+        .stat-item { text-align: center; }
+        .stat-item h3 { font-family: 'Orbitron'; color: var(--primary); font-size: 24px; }
+        .stat-item p { font-size: 12px; text-transform: uppercase; color: #888; }
+
+        /* Calendar Grid */
+        .calendar-container { max-width: 900px; margin: auto; padding: 20px; background: #111; border-radius: 20px; border: 1px solid #222; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+        .weekday { text-align: center; font-family: 'Orbitron'; color: var(--primary); font-size: 12px; padding-bottom: 10px; }
+        
+        .day-cell { height: 100px; background: #181818; border-radius: 10px; padding: 10px; position: relative; border: 1px solid #222; transition: 0.3s; }
+        .day-cell.empty { background: transparent; border: none; }
+        .day-cell.today { border: 2px solid var(--primary); }
+        .day-cell .day-num { font-weight: 700; font-size: 18px; color: #444; }
+        .day-cell.active .day-num { color: #fff; }
+
+        /* Status Indicators */
+        .status-dot { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 5px auto; font-size: 20px; }
+        .present-bg { background: rgba(50, 204, 17, 0.15); color: var(--primary); border: 1px solid var(--primary); box-shadow: 0 0 10px rgba(50,204,17,0.2); }
+        
+        .mark-btn { display: block; margin: 20px auto; background: var(--primary); border: none; padding: 12px 30px; font-family: 'Orbitron'; font-weight: 700; cursor: pointer; border-radius: 5px; }
+
+        @media (max-width: 600px) {
+            .day-cell { height: 70px; }
+            .day-cell .day-num { font-size: 14px; }
+            .status-dot { width: 30px; height: 30px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+<header class="top-navbar">
+      <div class="logo"><img src="Images/fulllogo.png" alt="logo"></div>
+      <div class="nav-right"> <span class="welcome-text">Hi,
+          <?php echo $_SESSION['username']; ?> !
+         </span><a href="user_dashboard.php"><i class="fas fa-home fa-xl home-icon"></i></a>
+         <a href="logout.php" class="logout-btn">
+            <i class="fas fa-sign-out-alt" style="margin-right:8px;"></i> Logout
+        </a>
+        </div>
+    </header>
+
+    <div class="calendar-header">
+        <h1>WORKOUT LOG</h1>
+        <div class="month-nav">
+            <a href="?month=<?= ($month==1?12:$month-1) ?>&year=<?= ($month==1?$year-1:$year) ?>"><i class="fas fa-chevron-left"></i></a>
+            <span><?= date('F Y', $first_day_of_month) ?></span>
+            <a href="?month=<?= ($month==12?1:$month+1) ?>&year=<?= ($month==12?$year+1:$year) ?>"><i class="fas fa-chevron-right"></i></a>
+        </div>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat-item">
+            <h3><?= $presentCount ?></h3>
+            <p>Days This Month</p>
+        </div>
+        <div class="stat-item">
+            <h3><?= round(($presentCount/$number_of_days)*100) ?>%</h3>
+            <p>Month Score</p>
+        </div>
+    </div>
+
+    <?php 
+    $today_check = $conn->query("SELECT * FROM attendance WHERE user_id=$user_id AND date='$date_today'");
+    if($today_check->num_rows == 0 && $month == date('m')): ?>
+        <form method="post"><button class="mark-btn" name="mark">MARK TODAY PRESENT</button></form>
+    <?php endif; ?>
+
+    <div class="calendar-container">
+        <div class="calendar-grid">
+            <div class="weekday">SUN</div><div class="weekday">MON</div><div class="weekday">TUE</div>
+            <div class="weekday">WED</div><div class="weekday">THU</div><div class="weekday">FRI</div>
+            <div class="weekday">SAT</div>
+
+            <?php
+            // Padding for start of month
+            for($x = 0; $x < $day_of_week; $x++) { echo '<div class="day-cell empty"></div>'; }
+
+            // Days of month
+            for($day = 1; $day <= $number_of_days; $day++) {
+                $current_date = sprintf("%04d-%02d-%02d", $year, $month, $day);
+                $is_present = in_array($current_date, $attendanceData);
+                $is_today = ($current_date == $date_today);
+                
+                echo '<div class="day-cell '.($is_today ? 'today' : '').' active">';
+                echo '<div class="day-num">'.$day.'</div>';
+                if($is_present) {
+                    echo '<div class="status-dot present-bg"><i class="fas fa-check"></i></div>';
+                }
+                echo '</div>';
             }
+            ?>
+        </div>
+    </div>
 
-            body {
-                background: #0b0b0b;
-                color: #fff
-            }
-
-            /* Navbar */
-            .navbar {
-                height: 80px;
-                background: #111;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 0 50px;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, .8)
-            }
-
-            .navbar img {
-                width: 170px
-            }
-
-            .nav-right {
-                display: flex;
-                align-items: center;
-                gap: 20px
-            }
-
-            .nav-right span {
-                color: #32cc11;
-                font-weight: 600
-            }
-
-            .logout {
-                background: #32cc11;
-                color: #ffffffff;
-                padding: 8px 22px;
-                border-radius: 25px;
-                text-decoration: none;
-                font-weight: 600
-            }
-
-            .home-icon {
-                color: white
-            }
-
-            /* Header */
-            .header {
-                text-align: center;
-                padding: 50px 20px
-            }
-
-            .header h1 {
-                font-size: 40px
-            }
-
-            .header p {
-                color: #aaa
-            }
-
-            /* Button */
-            .mark-btn {
-                display: block;
-                margin: 20px auto 40px;
-                padding: 14px 35px;
-                border: none;
-                border-radius: 30px;
-                background: linear-gradient(135deg, #32cc11, #6aff3d);
-                font-size: 16px;
-                font-weight: 700;
-                cursor: pointer
-            }
-
-            /* Attendance Grid */
-            .attendance-wrapper {
-                max-width: 1200px;
-                margin: auto;
-                padding: 0 20px
-            }
-
-            .attendance-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-                gap: 20px
-            }
-
-            /* Card */
-            .att-card {
-                background: #161616;
-                border-radius: 18px;
-                padding: 20px;
-                text-align: center;
-                box-shadow: 0 6px 15px rgba(0, 0, 0, .5);
-                transition: .3s
-            }
-
-            .att-card:hover {
-                transform: translateY(-6px)
-            }
-
-            .day {
-                font-size: 18px;
-                font-weight: 600;
-                margin-bottom: 8px
-            }
-
-            .date {
-                color: #aaa;
-                font-size: 14px;
-                margin-bottom: 15px
-            }
-
-            /* Status */
-            .badge {
-                padding: 8px 18px;
-                border-radius: 20px;
-                font-weight: 700;
-                font-size: 14px;
-                display: inline-block
-            }
-
-            .present {
-                background: #32cc11;
-                color: #000
-            }
-
-            .absent {
-                background: #ff3b3b
-            }
-
-            /* Info */
-            .info {
-                text-align: center;
-                color: #32cc11;
-                font-weight: 600;
-                margin-bottom: 30px
-            }
-        </style>
-    </head>
-
-    <body>
-        <!-- Navbar -->
-            <div class="navbar"><img src="Images/fulllogo.png">
-                <div class="nav-right"><span>Hi,
-                        <?=$_SESSION['username'] ?>
-                    </span><a href="user_dashboard.php"><i class="fas fa-home fa-xl home-icon"></i></a><a
-                        href="logout.php" class="logout">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24" style="vertical-align:middle; margin-right:6px;">
-        <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3h-8v2h8v14h-8v2h8c1.104 0 2-.896 2-2V5c0-1.104-.896-2-2-2z"/>
-    </svg>Logout</a></div>
-            </div>
-            <!-- Header -->
-                <div class="header">
-                    <h1>Attendance Record</h1>
-                    <p>Your last 30 days gym attendance</p>
-                </div>
-                <?php $today_check =$conn->query("SELECT * FROM attendance WHERE user_id=$user_id AND date='$date'");
-                 if($today_check->num_rows ==0): ?>
-                <form method="post"><button class="mark-btn" name="mark">Mark Today Present</button></form>
-                <?php else: ?>
-                <p class="info">✅ Today's attendance already marked</p>
-                <?php endif;
-?>
-                <!-- Attendance Cards -->
-                    <div class="attendance-wrapper">
-                        <div class="attendance-grid">
-                            <?php foreach($dates as $d): $status =isset($attendanceData[$d]) ? $attendanceData[$d] : "Absent";
-?>
-                            <div class="att-card">
-                                <div class="day">
-                                    <?=date("l", strtotime($d)) ?>
-                                </div>
-                                <div class="date">
-                                    <?=$d ?>
-                                </div><span class="badge <?= strtolower($status) ?>">
-                                    <?=$status ?>
-                                </span>
-                            </div>
-                            <?php endforeach;
-?>
-                        </div>
-                    </div>
-    </body>
-
-    </html>
+</body>
+</html>

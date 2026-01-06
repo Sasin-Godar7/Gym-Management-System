@@ -3,230 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gym Admin Dashboard</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        /* Reset & Fonts */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
-        body { background-color: #121212; color: #fff; }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            top: 0; left: 0;
-            width: 220px;
-            height: 100%;
-            background-color: #1f1f1f;
-            padding: 20px;
+        /* RESET & BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .sidebar h2 { color: #00ff00; margin-bottom: 30px; }
-        .sidebar a {
+
+        body {
+            min-height: 100vh;
+            width: 100%;
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #fff;
+            padding: 40px 20px;
+        }
+
+        /* HEADER SECTION */
+        .workout-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .workout-header span {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 10px;
+            color: #1cbe2c;
             display: block;
-            color: #ccc;
-            text-decoration: none;
-            margin: 15px 0;
-            padding: 10px;
-            border-radius: 5px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .workout-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(28, 190, 44, 0.4);
+            margin-bottom: 15px;
+        }
+
+        .workout-sub {
+            font-size: 1.1rem;
+            color: #bbb;
+            max-width: 600px;
+            margin: 0 auto;
+            border-left: 3px solid #1cbe2c;
+            padding-left: 15px;
+            background: rgba(28, 190, 44, 0.1);
+            padding: 10px 20px;
+            display: inline-block;
+            border-radius: 4px;
+        }
+
+        /* GRID SYSTEM */
+        .workout-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* WORKOUT CARDS (GLASSMORPHISM) */
+        .workout-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .workout-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #1cbe2c;
+            opacity: 0;
             transition: 0.3s;
         }
-        .sidebar a:hover, .sidebar a.active { background-color: #00ff00; color: #000; }
 
-        /* Main content */
-        .main {
-            margin-left: 240px;
-            padding: 20px;
-        }
-
-        /* Top bar */
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        .topbar button {
-            padding: 8px 15px;
-            background-color: #00ff00;
-            border: none;
-            color: #000;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
+        .workout-box:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(28, 190, 44, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
         }
 
-        /* Metrics cards */
-        .cards {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        .card {
-            flex: 1;
-            padding: 20px;
-            border-radius: 10px;
-            background-color: #1f1f1f;
-            text-align: center;
-            border: 2px solid;
-        }
-        .card.total-members { border-color: #9b59b6; }
-        .card.total-trainers { border-color: #3498db; }
-        .card.revenue { border-color: #e67e22; }
-        .card h3 { margin-bottom: 10px; color: #fff; }
-        .card p { font-size: 24px; font-weight: bold; }
-
-        /* Charts section */
-        .charts {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        .chart-container {
-            flex: 1;
-            background-color: #1f1f1f;
-            padding: 20px;
-            border-radius: 10px;
+        .workout-box:hover::before {
+            opacity: 1;
         }
 
-        /* Recent activity */
-        .recent-activity {
-            background-color: #1f1f1f;
-            padding: 20px;
-            border-radius: 10px;
+        .workout-box h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            color: #1cbe2c;
+            margin-bottom: 5px;
         }
-        .recent-activity h3 { margin-bottom: 15px; }
-        .recent-activity ul { list-style: none; }
-        .recent-activity li {
+
+        .workout-box h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .workout-box ul {
+            list-style: none;
+        }
+
+        .workout-box ul li {
             padding: 10px 0;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 1.1rem;
+            color: #ddd;
+            display: flex;
+            align-items: center;
         }
-        .recent-activity li:last-child { border-bottom: none; }
-        .purple { color: #9b59b6; }
-        .cyan { color: #3498db; }
 
+        .workout-box ul li::before {
+            content: '→';
+            margin-right: 10px;
+            color: #1cbe2c;
+            font-weight: bold;
+        }
+
+        .workout-box ul li:last-child {
+            border-bottom: none;
+        }
+
+        /* SPECIAL CARDS */
+        .rest-day {
+            background: linear-gradient(135deg, rgba(28, 190, 44, 0.1), rgba(0, 0, 0, 0.4));
+            text-align: center;
+            grid-column: span 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 1px dashed #1cbe2c;
+        }
+
+        .rest-day h2 {
+            color: #1cbe2c;
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(28, 190, 44, 0.3);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .workout-grid {
+                grid-template-columns: 1fr;
+            }
+            .workout-header {
+                margin-bottom: 30px;
+            }
+        }
     </style>
+    <title>Elite Weekly Workout</title>
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h2>GYM ADMIN</h2>
-        <a href="#" class="active">Dashboard</a>
-        <a href="#">Members</a>
-        <a href="#">Trainers</a>
-        <a href="#">Logout</a>
-    </div>
 
-    <!-- Main content -->
-    <div class="main">
-        <!-- Topbar -->
-        <div class="topbar">
-            <h2>Welcome, admin</h2>
-            <button>Logout</button>
-        </div>
+    <header class="workout-header">
+        <span>Weekly Training</span>
+        <h1 class="workout-title">WORKOUT PLAN</h1>
+        <p class="workout-sub">
+            1 Minute Per Exercise • 3 Sets • 60s Rest Between Sets
+        </p>
+    </header>
 
-        <!-- Metrics Cards -->
-        <div class="cards">
-            <div class="card total-members">
-                <h3>Total Members</h3>
-                <p>4</p>
-            </div>
-            <div class="card total-trainers">
-                <h3>Total Trainers</h3>
-                <p>7</p>
-            </div>
-            <div class="card revenue">
-                <h3>Revenue</h3>
-                <p>Rs 280000</p>
-            </div>
-        </div>
-
-        <!-- Charts -->
-        <div class="charts">
-            <div class="chart-container">
-                <h3>Members & Trainers Growth</h3>
-                <canvas id="growthChart"></canvas>
-            </div>
-            <div class="chart-container">
-                <h3>Active Classes</h3>
-                <canvas id="classesChart"></canvas>
-            </div>
-        </div>
-
-        <!-- Recent Activity -->
-        <div class="recent-activity">
-            <h3>Recent Activity Feed</h3>
+    <div class="workout-grid">
+        <div class="workout-box">
+            <h3>MONDAY</h3>
+            <h2>CHEST</h2>
             <ul>
-                <li><span class="purple">Jane Doe joined</span> - 1</li>
-                <li><span class="cyan">Yoga class update</span> - 5</li>
+                <li>Resistance Band Flyes</li>
+                <li>Dumbbell Chest Press</li>
+                <li>Incline Push Ups</li>
+                <li>Alternating Plank Row</li>
             </ul>
         </div>
+
+        <div class="workout-box">
+            <h3>TUESDAY</h3>
+            <h2>LEGS</h2>
+            <ul>
+                <li>Squat Jumps</li>
+                <li>Single Leg Hip Thrust</li>
+                <li>Clamshells</li>
+                <li>Romanian Deadlift</li>
+            </ul>
+        </div>
+
+        <div class="workout-box">
+            <h3>WEDNESDAY</h3>
+            <h2>CARDIO</h2>
+            <ul>
+                <li>Box Jumps</li>
+                <li>Pulsing Squats</li>
+                <li>Ski Jumps</li>
+                <li>Toe Taps</li>
+            </ul>
+        </div>
+
+        <div class="workout-box">
+            <h3>THURSDAY</h3>
+            <h2>BACK</h2>
+            <ul>
+                <li>Deadlift</li>
+                <li>Dumbbell Shrugs</li>
+                <li>Opposite Arm / Leg Raises</li>
+                <li>Resistance Band Face Pulls</li>
+            </ul>
+        </div>
+
+        <div class="workout-box">
+            <h3>FRIDAY</h3>
+            <h2>ABS</h2>
+            <ul>
+                <li>Standing Oblique Twists</li>
+                <li>Suitcase Crunches</li>
+                <li>Plank</li>
+                <li>Bicycle Crunches</li>
+            </ul>
+        </div>
+
+        <div class="workout-box">
+            <h3>SATURDAY</h3>
+            <h2>ARMS</h2>
+            <ul>
+                <li>Tricep Kickbacks</li>
+                <li>Hammer Curls</li>
+                <li>Overhead Circles</li>
+                <li>Lateral Raises</li>
+            </ul>
+        </div>
+
+        <div class="workout-box rest-day">
+            <h3>SUNDAY</h3>
+            <h2>REST DAY</h2>
+            <p style="color: #aaa; margin-top: 10px;">Recovery is where the growth happens.</p>
+        </div>
     </div>
 
-    <!-- Chart.js Scripts -->
-    <script>
-        // Members & Trainers Growth
-        const ctxGrowth = document.getElementById('growthChart').getContext('2d');
-        const growthChart = new Chart(ctxGrowth, {
-            type: 'line',
-            data: {
-                labels: ['20m','10pr','4lur','20m','40pr','30m','30m','20nr'],
-                datasets: [
-                    {
-                        label: 'Members',
-                        data: [0, 20, 50, 30, 70, 100, 140, 180],
-                        borderColor: '#9b59b6',
-                        backgroundColor: 'rgba(155,89,182,0.2)',
-                        tension: 0.4
-                    },
-                    {
-                        label: 'Trainers',
-                        data: [0, 10, 30, 25, 60, 90, 130, 170],
-                        borderColor: '#3498db',
-                        backgroundColor: 'rgba(52,152,219,0.2)',
-                        tension: 0.4
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                plugins: { legend: { labels: { color: '#fff' } } },
-                scales: {
-                    x: { ticks: { color: '#fff' }, grid: { color: '#333' } },
-                    y: { ticks: { color: '#fff' }, grid: { color: '#333' } }
-                }
-            }
-        });
-
-        // Active Classes
-        const ctxClasses = document.getElementById('classesChart').getContext('2d');
-        const classesChart = new Chart(ctxClasses, {
-            type: 'bar',
-            data: {
-                labels: ['Yoga','Spin','Spin','Cardio'],
-                datasets: [
-                    {
-                        label: 'Class 1',
-                        data: [12, 36, 30, 75],
-                        backgroundColor: '#3498db'
-                    },
-                    {
-                        label: 'Class 2',
-                        data: [8, 55, 24, 83],
-                        backgroundColor: '#9b59b6'
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                plugins: { legend: { labels: { color: '#fff' } } },
-                scales: {
-                    x: { ticks: { color: '#fff' }, grid: { color: '#333' } },
-                    y: { ticks: { color: '#fff' }, grid: { color: '#333' } }
-                }
-            }
-        });
-    </script>
 </body>
 </html>

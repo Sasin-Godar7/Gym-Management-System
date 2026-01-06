@@ -218,7 +218,7 @@ $bookings = $conn->query($sql);
       <span>Hi,
         <?= $_SESSION['username'] ?>!
       </span>
-      <a href="user_dashboard.php"><i class="fas fa-home"></i></a>
+      <a href="user_dashboard.php"><i class="fas fa-home fa-xl home-icon"></i></a>
       <a href="logout.php" class="logout">Logout</a>
     </div>
   </header>
