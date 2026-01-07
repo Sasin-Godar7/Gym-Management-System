@@ -259,7 +259,7 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Athlete';
 
     <div class="workout-grid">
         <div class="workout-box">
-            <h3>MONDAY</h3>
+            <h3>SUNDAY</h3>
             <h2>CHEST</h2>
             <ul>
                 <li>Resistance Band Flyes</li>
@@ -270,18 +270,18 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Athlete';
         </div>
 
         <div class="workout-box">
-            <h3>TUESDAY</h3>
-            <h2>LEGS</h2>
+              <h3>MONDAY</h3>
+            <h2>ARMS</h2>
             <ul>
-                <li>Squat Jumps</li>
-                <li>Single Leg Hip Thrust</li>
-                <li>Clamshells</li>
-                <li>Romanian Deadlift</li>
+                <li>Tricep Kickbacks</li>
+                <li>Hammer Curls</li>
+                <li>Overhead Circles</li>
+                <li>Lateral Raises</li>
             </ul>
         </div>
 
         <div class="workout-box">
-            <h3>WEDNESDAY</h3>
+            <h3>TUESDAY</h3>
             <h2>CARDIO</h2>
             <ul>
                 <li>Box Jumps</li>
@@ -292,7 +292,7 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Athlete';
         </div>
 
         <div class="workout-box">
-            <h3>THURSDAY</h3>
+            <h3>WEDNESDAY</h3>
             <h2>BACK</h2>
             <ul>
                 <li>Deadlift</li>
@@ -303,7 +303,7 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Athlete';
         </div>
 
         <div class="workout-box">
-            <h3>FRIDAY</h3>
+            <h3>THURSDAY</h3>
             <h2>ABS</h2>
             <ul>
                 <li>Standing Oblique Twists</li>
@@ -314,18 +314,19 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Athlete';
         </div>
 
         <div class="workout-box">
-            <h3>SATURDAY</h3>
-            <h2>ARMS</h2>
+                        <h3>FRIDAY</h3>
+            <h2>LEGS</h2>
             <ul>
-                <li>Tricep Kickbacks</li>
-                <li>Hammer Curls</li>
-                <li>Overhead Circles</li>
-                <li>Lateral Raises</li>
+                <li>Squat Jumps</li>
+                <li>Single Leg Hip Thrust</li>
+                <li>Clamshells</li>
+                <li>Romanian Deadlift</li>
             </ul>
+          
         </div>
 
         <div class="workout-box rest-day">
-            <h3>SUNDAY</h3>
+            <h3>SATURDAY</h3>
             <h2>REST DAY</h2>
             <p style="color: #aaa; margin-top: 10px; font-style: italic;">
                 "Recovery is where the growth happens."

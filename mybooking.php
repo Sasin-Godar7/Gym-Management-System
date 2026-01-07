@@ -20,219 +20,149 @@ $bookings = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <title>My Trainer Bookings | Sasin Elite Gym</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="images/fav.png">
+  <title>My Bookings | Sasin Elite Gym</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
-    /* ===== Global ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+
+    :root {
+      --accent: #32cc11;
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
     }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
 
     body {
-      background: #0f0f0f;
+      background: #050505;
       color: #fff;
-      line-height: 1.6;
+      min-height: 100vh;
+      background-image: radial-gradient(circle at 10% 20%, rgba(50, 204, 17, 0.05) 0%, transparent 40%);
     }
 
-    /* ===== Navbar ===== */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 50px;
-      background: #111;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, .7);
-      height: 80px;
+    /* Navbar */
+    .top-navbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 60px; height: 90px;
+      background: rgba(0,0,0,0.8); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      position: sticky; top: 0; z-index: 1000;
+    }
+    .logo img { height: 50px; }
+
+    .nav-right { display: flex; align-items: center; gap: 25px; }
+    .user-info { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: 0.5px; }
+
+    .logout-btn {
+      color: #ff4444; text-decoration: none; font-size: 13px; font-weight: 700;
+      padding: 8px 18px; border-radius: 10px; border: 1px solid rgba(255,68,68,0.2);
+      transition: 0.3s;
+    }
+    .logout-btn:hover { background: rgba(255,68,68,0.1); }
+
+    /* Main Content */
+    .container { max-width: 1100px; margin: 60px auto; padding: 0 20px; }
+
+    .hero-section { text-align: center; margin-bottom: 50px; }
+    .hero-section h1 { font-size: 42px; font-weight: 800; margin-bottom: 10px; }
+    .hero-section h1 span { color: var(--accent); }
+    .hero-section p { color: #888; font-size: 16px; }
+
+    /* Glass Table Card */
+    .table-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 30px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
 
-    .navbar img {
-      width: 180px;
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .nav-right span {
-      color: #32cc11;
-      font-weight: 600;
-      font-size: 16px;
-    }
-
-    .nav-right a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 800;
-    }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
     
-
-    .logout {
-      background: #32cc11;
-      color: #fff;
-      padding: 8px 22px;
-      border-radius: 25px;
-      transition: 0.3s;
-    }
-
-    .logout:hover {
-      background: #2bb40f;
-    }
-
-    /* ===== Hero ===== */
-    .hero {
-      max-width: 1100px;
-      margin: 40px auto 20px;
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-size: 36px;
-      color: #32cc11;
-      margin-bottom: 8px;
-    }
-
-    .hero p {
-      color: #ccc;
-      font-size: 16px;
-    }
-
-    /* ===== Container ===== */
-    .container {
-      max-width: 1100px;
-      margin: 30px auto 60px;
-      padding: 0 20px;
-    }
-
-    /* ===== Table ===== */
-    .table-wrapper {
-      overflow-x: auto;
-      background: #1e1e1e;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(50, 204, 17, 0.15);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    th,
-    td {
-      padding: 14px;
-      text-align: center;
-    }
-
     th {
-      background: #32cc11;
-      color: #000;
-      font-weight: 600;
+      text-align: left; padding: 20px;
+      color: var(--accent); font-size: 12px;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      border-bottom: 1px solid var(--glass-border);
     }
 
-    tr {
-      border-bottom: 1px solid #333;
-    }
+    td { padding: 20px; font-size: 15px; color: #ddd; border-bottom: 1px solid rgba(255,255,255,0.03); }
 
-    tr:nth-child(even) {
-      background: #292929;
-    }
+    tr:last-child td { border: none; }
+    tr:hover td { color: #fff; background: rgba(255,255,255,0.02); }
 
-    tr:hover {
-      background: #323232;
-      transition: 0.3s;
-    }
-
+    /* Status Badges */
     .status {
-      font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      display: inline-block;
+      padding: 6px 16px; border-radius: 50px; font-size: 11px;
+      font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
     }
 
-    .pending {
-      background: #ffcc00;
-      color: #000;
+    .status.pending { 
+        background: rgba(255, 193, 7, 0.1); color: #ffc107; 
+        border: 1px solid rgba(255, 193, 7, 0.3);
+    }
+    .status.approved { 
+        background: rgba(50, 204, 17, 0.1); color: #32cc11; 
+        border: 1px solid rgba(50, 204, 17, 0.3);
+        box-shadow: 0 0 15px rgba(50, 204, 17, 0.2);
+    }
+    .status.rejected { 
+        background: rgba(255, 68, 68, 0.1); color: #ff4444; 
+        border: 1px solid rgba(255, 68, 68, 0.3);
     }
 
-    .approved {
-      background: #4CAF50;
-      color: #fff;
-    }
-
-    .rejected {
-      background: #f44336;
-      color: #fff;
-    }
-
-    /* Back Button */
-    .back-btn {
-      display: inline-block;
-      margin-top: 20px;
-      background: #32cc11;
-      color: #ffffffff;
-      padding: 10px 25px;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: 600;
+    /* Actions */
+    .btn-container { margin-top: 30px; text-align: center; }
+    .back-dashboard {
+      display: inline-flex; align-items: center; gap: 10px;
+      color: #fff; text-decoration: none; font-weight: 700;
+      background: var(--accent); color: #000;
+      padding: 14px 30px; border-radius: 12px;
       transition: 0.3s;
     }
+    .back-dashboard:hover { transform: scale(1.05); background: #fff; }
 
-    .back-btn:hover {
-      background: #2bb40f;
-    }
-
-    /* ===== Responsive ===== */
-    @media(max-width:768px) {
-      .navbar {
-        flex-direction: column;
-        gap: 10px;
-        padding: 15px;
-      }
-
-      .hero h1 {
-        font-size: 28px;
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .top-navbar { padding: 0 20px; }
+      th, td { padding: 12px; font-size: 13px; }
+      .hero-section h1 { font-size: 30px; }
+      .table-card { padding: 15px; border-radius: 15px; }
+      table, thead, tbody, th, td, tr { display: block; }
+      thead tr { position: absolute; top: -9999px; left: -9999px; }
+      tr { margin-bottom: 15px; border: 1px solid var(--glass-border); border-radius: 15px; padding: 10px; }
+      td { border: none; position: relative; padding-left: 50%; text-align: right; }
+      td:before {
+        content: attr(data-label); position: absolute; left: 15px; width: 45%;
+        text-align: left; font-weight: 700; color: var(--accent);
       }
     }
   </style>
 </head>
-
 <body>
 
-  <!-- Navbar -->
-  <header class="navbar">
-    <img src="Images/fulllogo.png" alt="Sasin Elite Gym Logo">
-    <div class="nav-right">
-      <span>Hi,
-        <?= $_SESSION['username'] ?>!
-      </span>
-      <a href="user_dashboard.php"><i class="fas fa-home fa-xl home-icon"></i></a>
-      <a href="logout.php" class="logout">Logout</a>
-    </div>
-  </header>
+<header class="top-navbar">
+  <div class="logo"><img src="Images/fulllogo.png" alt="Sasin Elite"></div>
+  <div class="nav-right">
+    <span class="user-info"><i class="fas fa-user-circle"></i> <?= $_SESSION['username'] ?></span>
+    <a href="user_dashboard.php" style="color:#fff;"><i class="fas fa-house-user fa-lg"></i></a>
+    <a href="logout.php" class="logout-btn">Logout</a>
+  </div>
+</header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <h1>My Trainer Bookings</h1>
-    <p>Check your trainer booking status at a glance</p>
-  </section>
+<div class="container">
+  <div class="hero-section">
+    <h1>Booking <span>History</span></h1>
+    <p>Monitor your training schedule and request status</p>
+  </div>
 
-  <!-- Table -->
-  <div class="container">
-    <div class="table-wrapper">
-      <table>
+  <div class="table-card">
+    <table>
+      <thead>
         <tr>
           <th>Trainer</th>
           <th>Contact</th>
@@ -240,40 +170,45 @@ $bookings = $conn->query($sql);
           <th>Time</th>
           <th>Status</th>
         </tr>
-
+      </thead>
+      <tbody>
         <?php if($bookings->num_rows > 0): ?>
-        <?php while($row = $bookings->fetch_assoc()): ?>
-        <tr>
-          <td>
-            <?= $row['trainer_name'] ?>
-          </td>
-          <td>
-            <?= $row['contact'] ?>
-          </td>
-          <td>
-            <?= $row['booking_date'] ?>
-          </td>
-          <td>
-            <?= $row['booking_time'] ?>
-          </td>
-          <td>
-            <span class="status <?= strtolower($row['status']) ?>">
-              <?= $row['status'] ?>
-            </span>
-          </td>
-        </tr>
-        <?php endwhile; ?>
+          <?php while($row = $bookings->fetch_assoc()): ?>
+            <tr>
+              <td data-label="Trainer">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <i class="fas fa-user-tie" style="color:var(--accent)"></i>
+                    <strong><?= $row['trainer_name'] ?></strong>
+                </div>
+              </td>
+              <td data-label="Contact"><?= $row['contact'] ?></td>
+              <td data-label="Date"><i class="far fa-calendar-alt" style="margin-right:8px; opacity:0.6"></i><?= $row['booking_date'] ?></td>
+              <td data-label="Time"><i class="far fa-clock" style="margin-right:8px; opacity:0.6"></i><?= $row['booking_time'] ?></td>
+              <td data-label="Status">
+                <span class="status <?= strtolower($row['status']) ?>">
+                  <?= $row['status'] ?>
+                </span>
+              </td>
+            </tr>
+          <?php endwhile; ?>
         <?php else: ?>
-        <tr>
-          <td colspan="5">No bookings yet</td>
-        </tr>
+          <tr>
+            <td colspan="5" style="text-align:center; padding: 40px; color:#666;">
+                <i class="fas fa-calendar-times fa-3x" style="margin-bottom:15px; display:block; opacity:0.3"></i>
+                No bookings found. Start your journey today!
+            </td>
+          </tr>
         <?php endif; ?>
-      </table>
-    </div>
-
-    <a href="user_dashboard.php" class="back-btn">⬅ Back to Dashboard</a>
+      </tbody>
+    </table>
   </div>
 
-</body>
+  <div class="btn-container">
+    <a href="user_dashboard.php" class="back-dashboard">
+      <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </a>
+  </div>
+</div>
 
+</body>
 </html>
