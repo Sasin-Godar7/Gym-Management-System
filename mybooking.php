@@ -43,25 +43,64 @@ $bookings = $conn->query($sql);
       background-image: radial-gradient(circle at 10% 20%, rgba(50, 204, 17, 0.05) 0%, transparent 40%);
     }
 
-    /* Navbar */
-    .top-navbar {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 0 60px; height: 90px;
-      background: rgba(0,0,0,0.8); backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--glass-border);
-      position: sticky; top: 0; z-index: 1000;
-    }
-    .logo img { height: 50px; }
+    /* --- Navbar (Fixed for Elite Look) --- */
+        .top-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* background: rgba(17, 17, 17, 0.95); */
+            backdrop-filter: blur(2px);
+            padding: 0 50px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            /* box-shadow: 0 2px 20px rgba(0,0,0,0.8); */
+            height: 70px;
+        }
 
-    .nav-right { display: flex; align-items: center; gap: 25px; }
-    .user-info { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: 0.5px; }
+        .top-navbar .logo img {
+            width: 170px;
+        }
 
-    .logout-btn {
-      color: #ff4444; text-decoration: none; font-size: 13px; font-weight: 700;
-      padding: 8px 18px; border-radius: 10px; border: 1px solid rgba(255,68,68,0.2);
-      transition: 0.3s;
-    }
-    .logout-btn:hover { background: rgba(255,68,68,0.1); }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-right .welcome-text {
+            font-weight: 700;
+            color: #32cc11;
+            font-size: 18px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .nav-right a {
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .home-icon:hover { color: #32cc11; transform: scale(1.1); }
+
+        .logout-btn {
+            background: #32cc11;
+            padding: 10px 22px;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #28a70e;
+            box-shadow: 0 0 15px rgba(50, 204, 17, 0.4);
+        }
+
 
     /* Main Content */
     .container { max-width: 1100px; margin: 60px auto; padding: 0 20px; }
@@ -146,12 +185,16 @@ $bookings = $conn->query($sql);
 <body>
 
 <header class="top-navbar">
-  <div class="logo"><img src="Images/fulllogo.png" alt="Sasin Elite"></div>
-  <div class="nav-right">
-    <span class="user-info"><i class="fas fa-user-circle"></i> <?= $_SESSION['username'] ?></span>
-    <a href="user_dashboard.php" style="color:#fff;"><i class="fas fa-house-user fa-lg"></i></a>
-    <a href="logout.php" class="logout-btn">Logout</a>
-  </div>
+    <div class="logo">
+        <img src="Images/fulllogo.png" alt="logo" onerror="this.src='https://via.placeholder.com/180x50/111/32cc11?text=SASIN+ELITE'">
+    </div>
+    <div class="nav-right">
+        <!-- <span class="welcome-text">Hi, <?php echo htmlspecialchars($username); ?>!</span> -->
+        <a href="user_dashboard.php"><i class="fas fa-house fa-xl home-icon"></i></a>
+        <a href="logout.php" class="logout-btn">
+            <i class="fas fa-sign-out-alt" style="margin-right:8px;"></i> Logout
+        </a>
+    </div>
 </header>
 
 <div class="container">

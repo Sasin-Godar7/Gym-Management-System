@@ -59,7 +59,7 @@ $user_img = (!empty($user_data['profile_pic'])) ? $user_data['profile_pic'] : 'd
             <input type="file" id="profileInput" style="display:none;" accept="image/*" onchange="uploadProfile(this)">
         </div>
         
-        <a href="logout.php" class="logout-box">
+        <a href="index.php" class="logout-box">
             Logout <i class="fas fa-power-off"></i>
         </a>
     </div>
