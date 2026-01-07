@@ -211,6 +211,36 @@
       line-height: 1.6;
   }
 
+  .section-header{
+    margin-bottom: 30px;
+    padding-left: 5px;
+}
+
+.section-header h2{
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+.section-header h2::after{
+    content:'';
+    display:block;
+    width:60px;
+    height:4px;
+    background:#32cc11;
+    margin-top:10px;
+    border-radius:4px;
+}
+
+.section-header p{
+    margin-top:12px;
+    color:#9f9f9f;
+    font-size:15px;
+    max-width:600px;
+}
+
+
   /* Action Grid Icons Fix */
   .grid {
       display: grid;

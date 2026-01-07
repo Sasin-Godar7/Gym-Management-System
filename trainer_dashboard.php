@@ -1,349 +1,173 @@
-<?php session_start();
-require "config.php";
+<?php
+session_start();
+require "config.php"; 
 
-if( !isset($_SESSION['username']) || $_SESSION['role'] !='trainer') {
-  header("Location: login.php");
-  exit();
+if (!isset($_SESSION['username']) || $_SESSION['role'] != 'trainer') {
+    header("Location: login.php");
+    exit();
 }
 
-$trainer_id =$_SESSION['user_id'];
-$today =date('Y-m-d');
+$trainer_id = $_SESSION['user_id'];
+$username = $_SESSION['username'];
 
-// Stats
-$total =$conn->query("SELECT COUNT(*) c FROM trainer_bookings WHERE trainer_id=$trainer_id")->fetch_assoc()['c'];
-$approved =$conn->query("SELECT COUNT(*) c FROM trainer_bookings WHERE trainer_id=$trainer_id AND status='Approved'")->fetch_assoc()['c'];
-$pending =$conn->query("SELECT COUNT(*) c FROM trainer_bookings WHERE trainer_id=$trainer_id AND status='Pending'")->fetch_assoc()['c'];
+// --- IMAGE UPLOAD LOGIC ---
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profile_pic'])) {
+    $target_dir = "uploads/profile_pics/";
+    if (!file_exists($target_dir)) { mkdir($target_dir, 0777, true); }
+    
+    $file_ext = pathinfo($_FILES["profile_pic"]["name"], PATHINFO_EXTENSION);
+    $filename = "trainer_" . $trainer_id . "_" . time() . "." . $file_ext;
+    $target_file = $target_dir . $filename;
 
-// Filters
-$search =$_GET['search'] ?? '';
-$statusFilter =$_GET['status'] ?? '';
-
-$where ="tb.trainer_id=$trainer_id";
-
-if($search) {
-  $where .=" AND u.username LIKE '%$search%'";
+    if (move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file)) {
+        $conn->query("UPDATE users SET profile_pic='$filename' WHERE id=$trainer_id");
+        header("Location: " . $_SERVER['PHP_SELF']); 
+        exit();
+    }
 }
 
-if($statusFilter) {
-  $where .=" AND tb.status='$statusFilter'";
-}
+// Profile Image Fetch
+$user_data = $conn->query("SELECT profile_pic FROM users WHERE id=$trainer_id")->fetch_assoc();
+$user_img = $user_data['profile_pic'];
 
-$bookings =$conn->query("
- SELECT tb.*, u.username, u.email, u.contact FROM trainer_bookings tb JOIN users u ON tb.user_id=u.id WHERE $where ORDER BY tb.booking_date DESC ");
- ?>
+$bookings = $conn->query("SELECT tb.*, u.username, u.contact FROM trainer_bookings tb JOIN users u ON tb.user_id = u.id WHERE tb.trainer_id = $trainer_id ORDER BY tb.booking_date DESC");
+?>
+
 <!DOCTYPE html>
-  <html>
-
-  <head>
-    <title>Trainer Dashboard | Sasin Elite Gym</title>
-     <link rel="icon" type="image/png" href="Images/fav.png">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sasin Elite | Dashboard</title>
+    <link rel="icon" type="image/png" href="Images/fav.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Poppins, sans-serif;
-      }
+        :root {
+            --primary: #32cc11;
+            --bg: #050505;
+            --panel: #0d0d0d;
+            --border: #1a1a1a;
+            --text-dim: #888;
+        }
 
-      body {
-        background: #0f0f0f;
-        color: #fff
-      }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--bg); color: #fff; padding-top: 100px; }
 
-      /* Navbar */
-      .navbar {
-        background: #111;
-        height: 80px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 50px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, .8)
-      }
+        /* Fixed Navbar */
+        .nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            height: 85px; background: rgba(0, 0, 0, 0.95); border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(15px);
+        }
+        .logo img { width: 160px; }
 
-      .navbar img {
-        width: 170px
-      }
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        .welcome { font-weight: 700; font-size: 14px; letter-spacing: 0.5px; }
+        .welcome span { color: var(--primary); }
 
-      .nav-right {
-        display: flex;
-        align-items: center;
-        gap: 20px
-      }
+        /* Clickable Profile Image */
+        .profile-trigger {
+            width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--primary);
+            overflow: hidden; cursor: pointer; transition: 0.3s;
+            background: #111; display: flex; align-items: center; justify-content: center;
+        }
 
-      .nav-right span {
-        color: #32cc11;
-        font-weight: 600
-      }
+        .profile-trigger img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-trigger i { font-size: 20px; color: #fff; }
 
-      /* Home Icon bigger */
-      .home-icon {
-        padding: 10px 14px;
-        border-radius: 10px;
-        transition: 0.2s;
-        font-weight: 700;
-        text-decoration: none;
-        color: #ffffffff;
-      }
+        .logout-btn {
+            background: rgba(77, 239, 28, 0.89); color: #ffffffff;
+            padding: 10px 18px; border-radius: 8px; font-weight: 800;
+            text-decoration: none; font-size: 13px; display: flex; align-items: center; gap: 8px;
+            border: 1px solid rgba(255, 61, 0, 0.2); transition: 0.3s;
+        }
+        .logout-btn:hover { background: #0b8111ff; color: #fff; }
 
-      .logout {
-        background: #32cc11;
-        color: #fff;
-        padding: 8px 22px;
-        border-radius: 25px;
-        text-decoration: none;
-        font-weight: 800;
-      }
+        .main { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        
 
-      /* Profile Card */
-      .profile {
-        max-width: 1200px;
-        margin: 40px auto;
-        display: flex;
-        gap: 30px;
-        align-items: center;
-        padding: 30px;
-        border-radius: 20px;
-        background: #161616;
-        box-shadow: 0 5px 20px rgba(122, 252, 93, 0.2)
-      }
+        /* Table Design */
+        .data-card { background: var(--panel); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #111; padding: 20px; text-align: left; font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1.5px; }
+        td { padding: 22px 20px; border-bottom: 1px solid var(--border); }
 
-      .avatar {
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        background: #32cc11;
-        color: #000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 36px;
-        font-weight: 700
-      }
+        /* Status Styling */
+        .st-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 6px 15px; border-radius: 50px; font-weight: 800; font-size: 11px;
+        }
+        .st-badge.pending { color: #FFB300; background: rgba(255, 179, 0, 0.1); }
+        .st-badge.approved { color: var(--primary); background: rgba(50, 204, 17, 0.1); }
+        .st-badge.rejected { color: #FF3D00; background: rgba(255, 61, 0, 0.1); }
 
-      .profile h2 {
-        margin-bottom: 8px
-      }
-
-      .profile p {
-        color: #aaa
-      }
-
-      /* Stats */
-      .stats {
-        max-width: 1200px;
-        margin: 20px auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 20px
-      }
-
-      .stat {
-        background: #161616;
-        padding: 22px;
-        border-radius: 18px;
-        text-align: center;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, .6)
-      }
-
-      .stat h3 {
-        font-size: 34px;
-        color: #32cc11
-      }
-
-      .stat p {
-        color: #aaa
-      }
-
-      /* Filters */
-      .filters {
-        max-width: 1200px;
-        margin: 30px auto;
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap
-      }
-
-      .filters input,
-      .filters select {
-        padding: 10px 14px;
-        border-radius: 10px;
-        border: none;
-        background: #1e1e1e;
-        color: #fff
-      }
-
-      .filters button {
-        background: #32cc11;
-        border: none;
-        padding: 10px 22px;
-        border-radius: 10px;
-        font-weight: 600;
-        cursor: pointer
-      }
-
-      /* Table */
-      .table-wrap {
-        max-width: 1200px;
-        margin: 30px auto;
-        overflow-x: auto
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        background: #161616;
-        border-radius: 15px;
-        overflow: hidden
-      }
-
-      th,
-      td {
-        padding: 14px 16px
-      }
-
-      th {
-        background: #32cc11;
-        color: #000
-      }
-
-      td {
-        border-bottom: 1px solid #333
-      }
-
-      tr.today {
-        background: #1f2f1f
-      }
-
-      /* Status */
-      .badge {
-        padding: 6px 16px;
-        border-radius: 20px;
-        font-weight: 600
-      }
-
-      .pending {
-        background: #ff9800;
-        color: #000
-      }
-
-      .approved {
-        background: #32cc11;
-        color: #000
-      }
-
-      .rejected {
-        background: #f44336;
-        color: #fff
-      }
-
-      /* Buttons */
-      .btn {
-        padding: 6px 14px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 600
-      }
-
-      .approve {
-        background: #32cc11;
-        color: #000
-      }
-
-      .reject {
-        background: #f44336;
-        color: #fff
-      }
-
-      .empty {
-        text-align: center;
-        color: #aaa;
-        padding: 40px
-      }
+        .time-col { font-weight: 600;  font-size: 13px; }
+        .date-col { font-weight: 600; font-size: 14px; }
+        .client-info b { display: block; font-size: 16px; margin-bottom: 2px; color:rgba(23, 242, 48, 1); }
+        .client-info span { font-size: 12px; color: var(--text-dim); }
     </style>
-  </head>
+</head>
+<body>
 
-  <body>
-    <div class="navbar"> <img src="Images/fulllogo.png">
-      <div class="nav-right"> <span>Welcome,
-          <?=$_SESSION['username'] ?>
-        </span> <a href="user_dashboard.php"><i class="fas fa-home fa-xl home-icon"></i></a>
-         <a href="logout.php"
-          class="logout"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="white" viewBox="0 0 24 24" style="vertical-align:middle; margin-right:6px;">
-        <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3h-8v2h8v14h-8v2h8c1.104 0 2-.896 2-2V5c0-1.104-.896-2-2-2z"/>
-    </svg>Logout</a> 
-  </div>
-    </div>
-    <div class="profile">
-      <div class="avatar">
-        <?=strtoupper($_SESSION['username'][0]) ?>
-      </div>
-      <div>
-        <h2>
-          <?=$_SESSION['username'] ?>
-        </h2>
-        <p>Certified Gym Trainer</p>
-      </div>
-    </div>
-    <div class="stats">
-      <div class="stat">
-        <h3>
-          <?=$total ?>
-        </h3>
-        <p>Total Requests</p>
-      </div>
-      <div class="stat">
-        <h3>
-          <?=$approved ?>
-        </h3>
-        <p>Approved Sessions</p>
-      </div>
-      <div class="stat">
-        <h3>
-          <?=$pending ?>
-        </h3>
-        <p>Pending Requests</p>
-      </div>
-    </div>
-    <form class="filters" method="get"> <input type="text" name="search" placeholder="Search user..."
-        value="<?= $search ?>"> <select name="status">
-        <option value="">All Status</option>
-        <option value="Pending">Pending</option>
-        <option value="Approved">Approved</option>
-        <option value="Rejected">Rejected</option>
-      </select> <button>Filter</button> </form>
-    <div class="table-wrap">
-      <table>
-        <tr>
-          <th>User</th>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Status</th>
-        </tr>
-        <?php if($bookings->num_rows==0): ?>
-        <tr>
-          <td colspan="5" class="empty">No bookings found</td>
-        </tr>
-        <?php endif; ?>
-        <?php while($b=$bookings->fetch_assoc()): ?>
-        <tr class="<?= $b['booking_date']==$today?'today':'' ?>">
-          <td>
-            <?=$b['username'] ?>
-          </td>
-          <td>
-            <?=$b['booking_date'] ?>
-          </td>
-          <td>
-            <?=$b['booking_time'] ?>
-          </td>
-          <td><span class="badge <?= strtolower($b['status']) ?>">
-              <?=$b['status'] ?>
-            </span></td>
-          </tr>
-        <?php endwhile; ?>
-      </table>
-    </div>
-  </body>
+<nav class="nav">
+    <div class="logo"><img src="Images/fulllogo.png" alt="Sasin Elite"></div>
+    <div class="nav-right">
+        <div class="welcome">WELCOME, <span><?= strtoupper($username) ?></span></div>
+        
+        <form id="pForm" method="POST" enctype="multipart/form-data" style="display:none;">
+            <input type="file" name="profile_pic" id="pInput" onchange="document.getElementById('pForm').submit();">
+        </form>
 
-  </html>
+        <div class="profile-trigger" onclick="document.getElementById('pInput').click();" title="Click to Change Photo">
+            <?php if(!empty($user_img) && file_exists("uploads/profile_pics/".$user_img)): ?>
+                <img src="uploads/profile_pics/<?= $user_img ?>">
+            <?php else: ?>
+                <i class="fas fa-camera"></i>
+            <?php endif; ?>
+        </div>
+        
+        <a href="logout.php" class="logout-btn">
+            LOGOUT <i class="fas fa-sign-out-alt"></i>
+        </a>
+    </div>
+</nav>
+
+<div class="main">
+    <h2 style="margin-bottom: 25px; letter-spacing: 1px; font-size:1.5rem;  font-size: 40px;">Trainer<span style="color:rgba(23, 242, 48, 1);"> Dashboard</span></h2>
+    
+    <div class="data-card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($b = $bookings->fetch_assoc()): ?>
+                <tr>
+                    <td class="client-info">
+                        <b><?= $b['username'] ?></b>
+                        <span><i class="fas fa-phone-alt" style="font-size:10px;"></i> <?= $b['contact'] ?></span>
+                    </td>
+                    <td class="date-col"><?= date('M d, Y', strtotime($b['booking_date'])) ?></td>
+                    <td class="time-col"><?= $b['booking_time'] ?></td>
+                    <td>
+                        <div class="st-badge <?= strtolower($b['status']) ?>">
+                            <i class="fas fa-circle" style="font-size: 7px;"></i>
+                            <?= strtoupper($b['status']) ?>
+                        </div>
+                    </td>
+                </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

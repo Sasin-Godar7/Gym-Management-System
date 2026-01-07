@@ -83,6 +83,12 @@ $user_img = (!empty($user_data['profile_pic'])) ? $user_data['profile_pic'] : 'd
             <p>"This is not a routine. This is the life you chose — disciplined, focused, unstoppable."</p>
         </section>
 
+        <section class="section-header">
+    <h2>EXECUTE. TRACK. EVOLVE.</h2>
+    <p>No excuses. Every action you take here builds your dominance.</p>
+    </section>
+
+
         <section class="grid">
             <a href="attendence.php" class="action-card">
                 <i class="fas fa-calendar-check"></i>
