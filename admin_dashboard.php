@@ -363,11 +363,5 @@ $('#trainerSearch').on('keyup', function(){
 
 </script>
 
-
-
-
-
-
-
 </body>
 </html>

@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div id="contactError" class="error-text"></div>
 </div>
 
-<button type="submit" class="btn">Register</button>
+<button type="submit" class="btn" onclick="validateform()">Register</button>
 
 <p class="login-link">
 Already have an account? <a href="login.php">Login</a>

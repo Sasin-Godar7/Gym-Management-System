@@ -32,6 +32,8 @@ if(isset($_POST['username'], $_POST['password'])){
 <head>
 <title>Admin Login</title>
 <link rel="stylesheet" href="login.css">
+<link rel="icon" type="image/png" href="images/fav.png">
+
 </head>
 <body>
 <div class="container">
