@@ -67,6 +67,26 @@ body {
 
 /* CONTENT AREA */
 .content { margin-left: 220px; padding: 25px 30px; }
+.dashboard-header {
+    margin-bottom: 25px;
+}
+
+.dashboard-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+}
+.dashboard-header span
+{
+    color: rgb(33, 223, 33);
+}
+
+.dashboard-header p {
+    color: #ffffff;
+    font-size: 20px;
+}
+
 .dashboard-cards {
     display: flex;
     gap: 20px;

@@ -117,6 +117,12 @@ while($row = $res->fetch_assoc()){
 <!-- CONTENT -->
 <div class="content">
 
+<div class="dashboard-header">
+    <h1>Admin <span> Dashboard</span></h1>
+    <p>Overview of members, trainers & gym performance</p>
+</div>
+
+
 <!-- ================= DASHBOARD ================= -->
 <div id="dashboard" class="dashboard-cards">
 
