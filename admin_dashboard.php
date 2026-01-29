@@ -122,7 +122,7 @@ while($row = $res->fetch_assoc()){
     <p>Overview of members, trainers & gym performance</p>
 </div>
 
-
+ 
 <!-- ================= DASHBOARD ================= -->
 <div id="dashboard" class="dashboard-cards">
 
