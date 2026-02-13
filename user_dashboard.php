@@ -124,7 +124,8 @@ $user_img = (!empty($user_data['profile_pic'])) ? $user_data['profile_pic'] : 'd
                     <li class="disabled"><i class="fas fa-check"></i> Personal Trainer</li>
                     <li class="disabled"><i class="fas fa-check"></i> Custom Diet</li>
                 </ul>
-                <button class="plan-btn">GET STARTED</button>
+                <button class="plan-btn" onclick="window.location='payment.php?amount=1200'">GET STARTED</button>
+
             </div>
 
             <div class="price-card" style="border-color: var(--primary); background: rgba(50, 204, 17, 0.04);">
@@ -138,7 +139,7 @@ $user_img = (!empty($user_data['profile_pic'])) ? $user_data['profile_pic'] : 'd
                     <li><i class="fas fa-check"></i> Nutrition Guide</li>
                     <li class="disabled"><i class="fas fa-check"></i> VIP Lounge</li>
                 </ul>
-                <button class="plan-btn" style="background: var(--primary); color: #000;">GET STARTED</button>
+                <button class="plan-btn" style="background: var(--primary); color: #000;" onclick="window.location='payment.php?amount=2500'">GET STARTED</button>
             </div>
 
             <div class="price-card">
@@ -152,7 +153,7 @@ $user_img = (!empty($user_data['profile_pic'])) ? $user_data['profile_pic'] : 'd
                     <li><i class="fas fa-check"></i> Custom Meal Prep</li>
                     <li><i class="fas fa-check"></i> Steam & Sauna</li>
                 </ul>
-                <button class="plan-btn">GET STARTED</button>
+               <button class="plan-btn" onclick="window.location='payment.php?amount=4500'">GET STARTED</button>
             </div>
         </div>
     </main>
