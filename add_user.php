@@ -74,52 +74,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 </form>
 
 
-<script>
-function validateForm() {
+<script src="register.js">
 
-  var username = document.getElementById("username").value.trim();
-  var password = document.getElementById("password").value.trim();
-  var email    = document.getElementById("email").value.trim();
-  var contact  = document.getElementById("contact").value.trim();
-
-  // clear old errors
-  document.getElementById("usernameError").innerHTML = "";
-  document.getElementById("passwordError").innerHTML = "";
-  document.getElementById("emailError").innerHTML = "";
-  document.getElementById("contactError").innerHTML = "";
-
-  // patterns
-  var usernamePattern = /^[A-Za-z][A-Za-z0-9]{2,}$/;
-  var passwordPattern = /^(?=.*[0-9])(?=.*[@#\$%\^&\*])[A-Za-z0-9@#\$%\^&\*]{6,}$/;
-var emailPattern = /^[A-Za-z][A-Za-z0-9._%+-]*@[A-Za-z]+\.[A-Za-z]{2,}$/;
-  var phonePattern    = /^(97|98)[0-9]{8}$/;
-
-  if (!usernamePattern.test(username)) {
-    document.getElementById("usernameError").innerHTML =
-      "Username must start with a letter and be at least 3 characters";
-    return false;
-  }
-
-  if (!passwordPattern.test(password)) {
-    document.getElementById("passwordError").innerHTML =
-      "Password must be 6+ chars with number & symbol";
-    return false;
-  }
-
-  if (!emailPattern.test(email)) {
-    document.getElementById("emailError").innerHTML =
-      "Invalid email format";
-    return false;
-  }
-
-  if (!phonePattern.test(contact)) {
-    document.getElementById("contactError").innerHTML =
-      "Phone must start with 97 or 98 and be 10 digits";
-    return false;
-  }
-
-  return true; // allow submit
-}
 </script>
 
 
