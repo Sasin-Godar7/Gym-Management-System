@@ -80,7 +80,9 @@ while($row = $res->fetch_assoc()){
 <!-- TOPBAR -->
 <div class="topbar">
     <span>Welcome, <?= $_SESSION['admin_username'] ?></span>
-    <button onclick="window.location.href='index.php'"><i class="fa-solid fa-arrow-left"></i> Home</button>
+    <button onclick="window.location.href='logout.php'">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </button>
 </div>
 
 <!-- CONTENT -->
