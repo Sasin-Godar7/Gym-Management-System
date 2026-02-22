@@ -100,7 +100,7 @@ $bookings = $conn->query("SELECT tb.*, u.username, u.contact FROM trainer_bookin
         .profile-trigger i { font-size: 24px; color: var(--text-dim); }
 
         .logout-btn {
-            background: var(--danger); color: #fff;
+            background: var(--primary); color: #fff;
             padding: 10px 18px; border-radius: 8px; font-weight: 800;
             text-decoration: none; font-size: 12px; display: flex; align-items: center; gap: 8px;
             transition: 0.3s;

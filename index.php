@@ -270,15 +270,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             </div>
 
             <div class="testimonial-card">
-                <img src="Images/reviewer3.jpg" class="t-img" alt="Anuz Shrestha">
+                <img src="Images/ANUZFace.png" class="t-img" alt="Anuz Shrestha">
                 <h3>Anuz Dhakal</h3>
                 <div class="stars">★★★★★</div>
                 <p>Fat loss and muscle gain ko best gym.</p>
             </div>
 
             <div class="testimonial-card">
-                <img src="Images/reviewer4.jpg" class="t-img" alt="CBum">
-                <h3>CBum</h3>
+                <img src="Images/wariwari.jpeg" class="t-img" alt="CBum">
+                <h3>Muskan Tiwari</h3>
                 <div class="stars">★★★★★</div>
                 <p>Perfect bodybuilding environment.</p>
             </div>
