@@ -1,6 +1,11 @@
 <?php
 session_start();
 require "config.php";
+/* ===================== ADMIN AUTH CHECK ===================== */
+if(!isset($_SESSION['admin_username']) || $_SESSION['role'] != 'admin'){
+    header("Location: adminlogin.php");
+    exit();
+}
 if(!isset($_SESSION['admin_username'])){
     header("Location: adminlogin.php");
     exit();
